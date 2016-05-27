@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu May 26 22:24:35 BRT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0154-efd0-1f84-0000071b9170 
+on database directory C:\Users\Emanoel\Documents\Desenvolvimento\vendas-de-passagens-aereas\cadastro with class loader sun.misc.Launcher$AppClassLoader@c387f44 
+Loaded from file:/C:/Users/Emanoel/Documents/Desenvolvimento/vendas-de-passagens-aereas/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_45-b15
+user.dir=C:\Users\Emanoel\Documents\Desenvolvimento\vendas-de-passagens-aereas
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
