@@ -32,6 +32,7 @@ public class Conexao {
                     + "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
                     + "NOME varchar(100) NOT NULL)";
             sta.executeUpdate(sqlCOMPANHIAS);
+            
             String sqlROTAS = "CREATE TABLE ROTAS("
             		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
             		+ "ORIGEM varchar(100) NOT NULL,"
@@ -40,6 +41,12 @@ public class Conexao {
             		+ "PARADAS int,"
             		+ "EQUIPAMENTO varchar(30))";	
             sta.executeUpdate(sqlROTAS);
+            
+            String sqlUSUARIO = "CREATE TABLE USUARIO("
+            		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
+            		+ "LOGIN varchar(100) NOT NULL,"
+            		+ "SENHA varchar(30))";
+            sta.executeUpdate(sqlUSUARIO);
         }
     }
 

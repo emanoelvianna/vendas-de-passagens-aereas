@@ -1,6 +1,6 @@
 package br.com.entidades;
 
-import br.com.enums.Documento;
+import br.com.entidades.enums.Documento;
 
 public class IdentificacaoPassaro {
 
