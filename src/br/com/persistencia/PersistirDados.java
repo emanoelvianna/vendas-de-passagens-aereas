@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.entidades.Aeroporto;
 import br.com.entidades.CompanhiaAerea;
 import br.com.entidades.Rota;
 import br.com.entidades.Usuario;
@@ -24,6 +25,7 @@ public class PersistirDados {
 	public void lerTodosOsArquivos() {
 		// lerArquivoDeCompanhiasAereas();
 		lerArquivoDeUsuarios();
+		lerArquivoDeAeroportos();
 	}
 
 	public void lerArquivoDeCompanhiasAereas() {
@@ -89,11 +91,41 @@ public class PersistirDados {
 	public void lerArquivoDeRotas() {
 		RotaDaoDerby rotaDAOderby = new RotaDaoDerby();
 		try {
-			br = new BufferedReader(new FileReader("dados/usuario.csv"));
+			br = new BufferedReader(new FileReader("dados/rotas.csv"));
 			// ignorando a primeira linha do arquivo
 			br.readLine();
 			while ((linha = br.readLine()) != null) {
 				// TODO: codigo
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		} finally {
+
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public void lerArquivoDeAeroportos() {
+		AeroportoDaoDerby aeroportoDaoDerby = new AeroportoDaoDerby();
+		try {
+			br = new BufferedReader(new FileReader("dados/airports.dat"));
+			// ignorando a primeira linha do arquivo
+			br.readLine();
+			while ((linha = br.readLine()) != null) {
+				String[] info = linha.split(divisor);
+				Aeroporto aeroporto= new Aeroporto(info[0], info[1], info[2], info[3]);
+				aeroportoDaoDerby.inserir(aeroporto);
 			}
 
 		} catch (FileNotFoundException e) {

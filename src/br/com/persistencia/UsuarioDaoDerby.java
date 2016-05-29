@@ -28,7 +28,6 @@ public class UsuarioDaoDerby implements UsuarioDao {
 		if (resultado == 0) {
 			throw new DaoUsuarioException("ERRO: falha usúario não inserido");
 		}
-
 	}
 
 	@Override

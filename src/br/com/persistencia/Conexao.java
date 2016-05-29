@@ -48,6 +48,13 @@ public class Conexao {
             		+ "LOGIN varchar(100) NOT NULL,"
             		+ "SENHA varchar(30))";
             sta.executeUpdate(sqlUSUARIO);
+            
+            String sqlAEROPORTO = "CREATE TABLE AEROPORTO("
+            		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
+            		+ "LATITUDE varchar(100) NOT NULL,"
+            		+ "LONGITUDE varchar(100) NOT NULL,"
+            		+ "NOME varchar(100))";
+            sta.executeUpdate(sqlAEROPORTO);
         }
     }
 
