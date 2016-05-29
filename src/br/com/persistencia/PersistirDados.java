@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.entidades.CompanhiaAerea;
+import br.com.entidades.Rota;
 import br.com.entidades.Usuario;
 
 public class PersistirDados {
@@ -19,9 +20,9 @@ public class PersistirDados {
 	BufferedReader br = null;
 	private String linha;
 	private String divisor = ";";
-	
+
 	public void lerTodosOsArquivos() {
-		//lerArquivoDeCompanhiasAereas();
+		// lerArquivoDeCompanhiasAereas();
 		lerArquivoDeUsuarios();
 	}
 
@@ -65,6 +66,34 @@ public class PersistirDados {
 				String[] info = linha.split(divisor);
 				Usuario usuario = new Usuario(info[0], info[1], info[2]);
 				usuarioDAOderby.inserir(usuario);
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		} finally {
+
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public void lerArquivoDeRotas() {
+		RotaDaoDerby rotaDAOderby = new RotaDaoDerby();
+		try {
+			br = new BufferedReader(new FileReader("dados/usuario.csv"));
+			// ignorando a primeira linha do arquivo
+			br.readLine();
+			while ((linha = br.readLine()) != null) {
+				// TODO: codigo
 			}
 
 		} catch (FileNotFoundException e) {

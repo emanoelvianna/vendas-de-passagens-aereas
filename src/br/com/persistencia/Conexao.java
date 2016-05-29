@@ -35,6 +35,7 @@ public class Conexao {
             
             String sqlROTAS = "CREATE TABLE ROTAS("
             		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
+            		+ "COMPANHIA varchar(100) NOT NULL,"
             		+ "ORIGEM varchar(100) NOT NULL,"
             		+ "DESTINO varchar(100) NOT NULL,"
             		+ "CODESHARE varchar(1),"

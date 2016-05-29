@@ -6,9 +6,19 @@ public class Rota {
 	private CompanhiaAerea companhiaAerea;
 	private Aeroporto origem;
 	private Aeroporto destino;
-	private String CodeShare;
+	private String codeShare;
 	private int paradas;
 	private String equipamentos;
+
+	public Rota(String codigo, String codeShare, int paradas, String equipamentos) {
+		this.codigo = codigo;
+		this.companhiaAerea = companhiaAerea;
+		this.origem = origem;
+		this.destino = destino;
+		this.codeShare = codeShare;
+		this.paradas = paradas;
+		this.equipamentos = equipamentos;
+	}
 
 	public CompanhiaAerea getCompanhiaAerea() {
 		return companhiaAerea;
@@ -51,11 +61,11 @@ public class Rota {
 	}
 
 	public String getCodeShare() {
-		return CodeShare;
+		return codeShare;
 	}
 
 	public void setCodeShare(String codeShare) {
-		CodeShare = codeShare;
+		codeShare = codeShare;
 	}
 
 	public String getCodigo() {
