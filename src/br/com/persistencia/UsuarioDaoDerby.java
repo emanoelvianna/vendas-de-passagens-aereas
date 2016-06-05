@@ -7,7 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.entidades.Usuario;
+import br.com.modelo.entidades.Usuario;
+import br.com.persistencia.conexao.Conexao;
+import br.com.persistencia.dao.UsuarioDao;
+import br.com.persistencia.excecoes.DaoUsuarioException;
 
 public class UsuarioDaoDerby implements UsuarioDao {
 

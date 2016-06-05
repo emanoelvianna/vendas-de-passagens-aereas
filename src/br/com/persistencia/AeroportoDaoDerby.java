@@ -7,12 +7,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.entidades.Aeroporto;
+import br.com.modelo.entidades.Aeroporto;
+import br.com.persistencia.conexao.Conexao;
+import br.com.persistencia.dao.AeroportoDao;
+import br.com.persistencia.excecoes.DaoAeroportoException;
 
 public class AeroportoDaoDerby implements AeroportoDao {
 
 	@Override
-	public boolean inserir(Aeroporto aeroporto) throws DaoAeroportoException {
+	public void inserir(Aeroporto aeroporto) throws DaoAeroportoException {
 		String sql = "INSERT INTO AEROPORTO(CODIGO, LATITUDE, LONGITUDE, NOME) VALUES(?,?,?,?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
@@ -29,7 +32,6 @@ public class AeroportoDaoDerby implements AeroportoDao {
 		if (resultado == 0) {
 			throw new DaoAeroportoException("ERRO: falha usúario não inserido");
 		}
-		return false;
 	}
 
 	@Override

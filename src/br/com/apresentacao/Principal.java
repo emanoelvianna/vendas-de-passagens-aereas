@@ -1,11 +1,7 @@
 package br.com.apresentacao;
 
-import java.util.List;
-
-import br.com.entidades.Aeroporto;
-import br.com.persistencia.AeroportoDaoDerby;
-import br.com.persistencia.Conexao;
 import br.com.persistencia.PersistirDados;
+import br.com.persistencia.conexao.Conexao;
 
 public class Principal {
 
@@ -18,13 +14,5 @@ public class Principal {
 
 		System.out.println("-- Base de dados criada --");
 
-		System.out.println("-- Imprimindo usuarios --");
-
-		AeroportoDaoDerby aeroportos = new AeroportoDaoDerby();
-
-		List<Aeroporto> lista = aeroportos.buscarTodos();
-		for (Aeroporto u : lista) {
-			System.out.println(u.getNome());
-		}
 	}
 }

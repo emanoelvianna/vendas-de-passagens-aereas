@@ -7,12 +7,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.entidades.CompanhiaAerea;
+import br.com.modelo.entidades.CompanhiaAerea;
+import br.com.persistencia.conexao.Conexao;
+import br.com.persistencia.dao.CompanhiaAereaDao;
+import br.com.persistencia.excecoes.DaoCompanhiaAereaException;
 
-public class CompanhiaAereaDaoDerby {
-	public List<CompanhiaAerea> buscarTodos() throws Exception {
+public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
+
+	public void inserir(CompanhiaAerea companhiaAerea) throws DaoCompanhiaAereaException {
+		String sql = "INSERT INTO COMPANHIA(codigo,nome) VALUES(?,?)";
+		int resultado = 0;
+		try (Connection conexao = Conexao.getConexao()) {
+			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+				comando.setString(1, companhiaAerea.getCodigo());
+				comando.setString(2, companhiaAerea.getNome());
+				resultado = comando.executeUpdate();
+			}
+		} catch (Exception e) {
+			throw new DaoCompanhiaAereaException("ERRO: falha ao tentar inserir companhia aérea", e);
+		}
+		if (resultado == 0) {
+			throw new DaoCompanhiaAereaException("ERRO: falha companhia aérea não inserida");
+		}
+	}
+
+	public List<CompanhiaAerea> buscarTodos() throws DaoCompanhiaAereaException {
 		List<CompanhiaAerea> lista = new ArrayList<>();
-		String sql = "SELECT * FROM COMPANHIAS";
+		String sql = "SELECT * FROM COMPANHIA";
 
 		try (Connection conexao = Conexao.getConexao()) {
 			try (Statement comando = conexao.createStatement()) {
@@ -26,24 +47,8 @@ public class CompanhiaAereaDaoDerby {
 				}
 			}
 		} catch (Exception e) {
-			throw new Exception("Falha na busca", e);
+			throw new DaoCompanhiaAereaException("ERRO: falha ao tentar inserir companhia aérea", e);
 		}
 	}
 
-	public void inserir(CompanhiaAerea companhiaAerea) throws Exception {
-		String sql = "INSERT INTO COMPANHIAS(codigo,nome) VALUES(?,?)";
-		int resultado = 0;
-		try (Connection conexao = Conexao.getConexao()) {
-			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-				comando.setString(1, companhiaAerea.getCodigo());
-				comando.setString(2, companhiaAerea.getNome());
-				resultado = comando.executeUpdate();
-			}
-		} catch (Exception e) {
-			throw new Exception("Erro1", e);
-		}
-		if (resultado == 0) {
-			throw new Exception("Erro2");
-		}
-	}
 }
