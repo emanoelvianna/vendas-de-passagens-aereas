@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.modelo.entidades.CompanhiaAerea;
+import br.com.modelo.entidades.Usuario;
 import br.com.persistencia.conexao.Conexao;
 import br.com.persistencia.dao.CompanhiaAereaDao;
 import br.com.persistencia.excecoes.DaoCompanhiaAereaException;
+import br.com.persistencia.excecoes.DaoUsuarioException;
 
 public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 
@@ -31,6 +33,28 @@ public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 		}
 	}
 
+    @Override
+    public CompanhiaAerea buscarPorCodigo(String codigo) throws DaoUsuarioException {
+        String sql = "SELECT * FROM COMPANHIA WHERE CODIGO = ?";
+        CompanhiaAerea companhiaAerea = null;
+        try (Connection conexao = Conexao.getConexao()) {
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                comando.setString(1, codigo);
+                try (ResultSet resultado = comando.executeQuery()) {
+                    if (resultado.next()) {
+                    	companhiaAerea = new CompanhiaAerea(
+                    			resultado.getString("codigo"),
+                                resultado.getString("nome")
+                        );
+                    }
+                    return companhiaAerea;
+                }
+            }
+        } catch (Exception e) {
+            throw new DaoUsuarioException("ERRO: falha ao tentar buscar companhia aérea", e);
+        }
+    }
+
 	public List<CompanhiaAerea> buscarTodos() throws DaoCompanhiaAereaException {
 		List<CompanhiaAerea> lista = new ArrayList<>();
 		String sql = "SELECT * FROM COMPANHIA";
@@ -39,15 +63,17 @@ public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 			try (Statement comando = conexao.createStatement()) {
 				try (ResultSet resultado = comando.executeQuery(sql)) {
 					while (resultado.next()) {
-						CompanhiaAerea companhiaAerea = new CompanhiaAerea(resultado.getString(1),
-								resultado.getString(2));
+						CompanhiaAerea companhiaAerea = new CompanhiaAerea(
+								resultado.getString(1),
+								resultado.getString(2)
+						);
 						lista.add(companhiaAerea);
 					}
 					return lista;
 				}
 			}
 		} catch (Exception e) {
-			throw new DaoCompanhiaAereaException("ERRO: falha ao tentar inserir companhia aérea", e);
+			throw new DaoCompanhiaAereaException("ERRO: falha ao tentar buscar companhias aéreas", e);
 		}
 	}
 

@@ -8,7 +8,11 @@ import java.io.IOException;
 import br.com.modelo.entidades.Aeroporto;
 import br.com.modelo.entidades.CompanhiaAerea;
 import br.com.modelo.entidades.Usuario;
+import br.com.modelo.entidades.Voo;
+import br.com.persistencia.dao.AeroportoDao;
+import br.com.persistencia.dao.CompanhiaAereaDao;
 import br.com.persistencia.dao.UsuarioDao;
+import br.com.persistencia.dao.VooDao;
 
 public class PersistirDados {
 
@@ -17,8 +21,10 @@ public class PersistirDados {
 	private String divisor = ";";
 
 	public void lerTodosOsArquivos() {
-		// lerArquivoDeCompanhiasAereas();
+		lerArquivoDeCompanhiasAereas();
+		lerArquivoDeAeroportos();
 		lerArquivoDeUsuarios();
+		lerArquivoDeVoos();
 	}
 
 	public void lerArquivoDeCompanhiasAereas() {
@@ -61,6 +67,41 @@ public class PersistirDados {
 				String[] info = linha.split(divisor);
 				Usuario usuario = new Usuario(info[0], info[1], info[2]);
 				UsuarioDao.inserir(usuario);
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		} finally {
+
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public void lerArquivoDeVoos() {
+		VooDao vooDaoDerby = new VooDaoDerby();
+		AeroportoDao aeroportoDao = new AeroportoDaoDerby();
+		CompanhiaAereaDao companhiaAereaDao = new CompanhiaAereaDaoDerby();
+		try {
+			br = new BufferedReader(new FileReader("dados/rotas.csv"));
+			// ignorando a primeira linha do arquivo
+			br.readLine();
+			while ((linha = br.readLine()) != null) {
+				String[] info = linha.split(divisor);
+				CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo(info[1]);
+				Aeroporto origem = aeroportoDao.buscarPorCodigo(info[2]);
+				Aeroporto destino = aeroportoDao.buscarPorCodigo(info[3]);
+				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6], 50);
+				vooDaoDerby.inserir(voo);
 			}
 
 		} catch (FileNotFoundException e) {

@@ -2,17 +2,24 @@ package br.com.modelo.entidades;
 
 public class Voo {
 	private String codigo;
-	private int numeroDeAssentos;
-	private String equipamento;
+	private CompanhiaAerea companhiaAerea;
 	private Aeroporto origem;
 	private Aeroporto destino;
+	private String codeshare;
+	private int paradas;
+	private String equipamento;
+	private int numeroDeAssentos;
 
-	public Voo(String codigo, int numeroDeAssentos, String equipamento, Aeroporto origem, Aeroporto destino) {
-		this.setCodigo(codigo);
-		this.setNumeroDeAssentos(numeroDeAssentos);
-		this.setEquipamento(equipamento);
+	public Voo(String codigo, CompanhiaAerea companhiaAerea, Aeroporto origem, Aeroporto destino, String codeshare,
+			int paradas, String equipamento, int numeroDeAssentos) {
+		this.codigo = codigo;
+		this.companhiaAerea = companhiaAerea;
 		this.origem = origem;
 		this.destino = destino;
+		this.codeshare = codeshare;
+		this.paradas = paradas;
+		this.equipamento = equipamento;
+		this.numeroDeAssentos = numeroDeAssentos;
 	}
 
 	public String getCodigo() {
@@ -53,6 +60,30 @@ public class Voo {
 
 	public void setDestino(Aeroporto destino) {
 		this.destino = destino;
+	}
+
+	public String getCodeshare() {
+		return codeshare;
+	}
+
+	public void setCodeshare(String codeshare) {
+		this.codeshare = codeshare;
+	}
+
+	public int getParadas() {
+		return paradas;
+	}
+
+	public void setParadas(int paradas) {
+		this.paradas = paradas;
+	}
+
+	public CompanhiaAerea getCompanhiaAerea() {
+		return companhiaAerea;
+	}
+
+	public void setCompanhiaAerea(CompanhiaAerea companhiaAerea) {
+		this.companhiaAerea = companhiaAerea;
 	}
 
 }

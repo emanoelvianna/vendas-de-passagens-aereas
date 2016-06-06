@@ -35,9 +35,27 @@ public class AeroportoDaoDerby implements AeroportoDao {
 	}
 
 	@Override
-	public Aeroporto buscarPorCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Aeroporto buscarPorCodigo(String codigo) throws DaoAeroportoException {
+		 String sql = "SELECT * FROM AEROPORTO WHERE CODIGO = ?";
+	        Aeroporto aeroporto = null;
+	        try (Connection conexao = Conexao.getConexao()) {
+	            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+	                comando.setString(1, codigo);
+	                try (ResultSet resultado = comando.executeQuery()) {
+	                    if (resultado.next()) {
+	                    	aeroporto = new Aeroporto(
+	                    			resultado.getString("codigo"),
+	                    			resultado.getString("latitude"),
+	                    			resultado.getString("longitude"),
+	                    			resultado.getString("nome")
+	                        );
+	                    }
+	                    return aeroporto;
+	                }
+	            }
+	        } catch (Exception e) {
+	            throw new DaoAeroportoException("ERRO: falha ao tentar buscar companhia aérea", e);
+	        }
 	}
 
 	@Override

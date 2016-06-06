@@ -45,6 +45,20 @@ public class Conexao {
             		+ "LONGITUDE varchar(100) NOT NULL,"
             		+ "NOME varchar(100) NOT NULL)";
             sta.executeUpdate(sqlAEROPORTO);
+            
+            String sqlVOO = "CREATE TABLE VOO("
+            		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
+            		+ "COMPANHIA varchar(100) NOT NULL,"
+            		+ "CODIGOORIGEM varchar(100) NOT NULL,"
+            		+ "CODIGODESTINO varchar(100) NOT NULL,"
+            		+ "CODESHARE varchar(1),"
+            		+ "PARADAS int,"
+            		+ "EQUIPAMENTO varchar(100),"
+            		+ "ASSENTOS int,"
+            		+ "CONSTRAINT FK_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO),"
+            		+ "CONSTRAINT FK_ORIGEM FOREIGN KEY (CODIGOORIGEM) REFERENCES AEROPORTO(CODIGO),"
+            		+ "CONSTRAINT FK_DESTINO FOREIGN KEY (CODIGODESTINO) REFERENCES AEROPORTO(CODIGO))";
+            sta.executeUpdate(sqlVOO); 
         }
     }
 

@@ -33,28 +33,28 @@ public class UsuarioDaoDerby implements UsuarioDao {
 		}
 	}
 
-	@Override
-	public Usuario buscarPorCodigo(Integer codigo) throws DaoUsuarioException {
-		String sql = "SELECT * FROM USUARIO WHERE CODIGO = ?";
-		Usuario usuario = null;
-		try (Connection conexao = Conexao.getConexao()) {
-			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-				comando.setInt(1, codigo);
-				try (ResultSet resultado = comando.executeQuery(sql)) {
-					if(resultado.next()) {
-						usuario = new Usuario(
-								resultado.getString("codigo"),
-								resultado.getString("login"), 
-								resultado.getString("senha")
-						);
-					}
-					return usuario;
-				}
-			}
-		} catch (Exception e) {
-			throw new DaoUsuarioException("ERRO: falha ao tentar inserir usúario", e);
-		}
-	}
+    @Override
+    public Usuario buscarPorCodigo(int codigo) throws DaoUsuarioException {
+        String sql = "SELECT * FROM USUARIO WHERE CODIGO = ?";
+        Usuario usuario = null;
+        try (Connection conexao = Conexao.getConexao()) {
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                comando.setInt(1, codigo);
+                try (ResultSet resultado = comando.executeQuery()) {
+                    if (resultado.next()) {
+                    	usuario = new Usuario(
+                    			resultado.getString("codigo"),
+                                resultado.getString("login"),
+                                resultado.getString("senha")
+                        );
+                    }
+                    return usuario;
+                }
+            }
+        } catch (Exception e) {
+            throw new DaoUsuarioException("Falha na busca", e);
+        }
+    }
 
 	@Override
 	public List<Usuario> buscarTodos() throws DaoUsuarioException {
