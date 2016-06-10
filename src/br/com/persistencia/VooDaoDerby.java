@@ -18,7 +18,7 @@ public class VooDaoDerby implements VooDao {
 
 	@Override
 	public void inserir(Voo voo) throws DaoVooException {
-		String sql = "INSERT INTO VOO(CODIGO, NUMERODEASSENTOS, EQUIPAMENTO, COD_ORIGEM, COD_DESTINO) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO VOO(CODIGO, COMPANHIA, CODIGOORIGEM, CODIGODESTINO, CODESHARE, PARADAS, EQUIPAMENTO, ASSENTOS) VELUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		int resultado = 0;
 		try {
 			// recupera origem
