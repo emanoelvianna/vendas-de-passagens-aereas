@@ -67,7 +67,7 @@ public class Conexao {
             		+ "NOMEPASSAGEIRO varchar(100) NOT NULL,"
             		+ "STATUS varchar(100) NOT NULL,"
             		+ "LIBERARCHECKIN int NOT NULL,"
-            		+ "DATAHORA DATE NOT NULL,"
+            		+ "DATAHORA varchar(100) NOT NULL,"
             		+ "ASSENTO int NOT NULL,"
             		+ "DOCUMENTO varchar(100) NOT NULL,"
             		+ "LOCALIZADOR int NOT NULL,"

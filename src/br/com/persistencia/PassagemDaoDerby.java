@@ -35,7 +35,7 @@ public class PassagemDaoDerby implements PassagemDao {
 				statement.setString(4, passagem.getNomePassageiro());
 				statement.setString(5, passagem.getStatus().toString());
 				statement.setInt(6, passagem.getCheckin());
-				statement.setDate(7, (Date) passagem.getDatahora());
+				statement.setString(7, passagem.getDatahora().toString());
 				statement.setInt(8, passagem.getNumeroAssento());
 				statement.setString(9, passagem.getDocumento().toString());
 				statement.setInt(10, passagem.getNumeroLocalizador());

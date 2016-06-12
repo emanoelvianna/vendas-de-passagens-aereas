@@ -1,6 +1,6 @@
 package br.com.modelo.entidades;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 import br.com.modelo.enums.Documento;
 import br.com.modelo.enums.Status;
@@ -9,7 +9,7 @@ public class Passagem {
 	private String codigo;
 	private String nomePassageiro;
 	private Status status;
-	private Date datahora;
+	private DateTime datahora;
 	private int numeroAssento;
 	private int numeroLocalizador;
 	private Documento documento;
@@ -17,7 +17,7 @@ public class Passagem {
 	private String codigoUsuario;
 	private String companhiaAerea;
 
-	public Passagem(String codigo, String nomePassageiro, Status status, Date datahora, int numeroAssento,
+	public Passagem(String codigo, String nomePassageiro, Status status, DateTime datahora, int numeroAssento,
 			int numeroLocalizador, Documento documento, int checkin, String codigoUsuario, String companhiaAerea) {
 		this.codigo = codigo;
 		this.nomePassageiro = nomePassageiro;
@@ -55,11 +55,11 @@ public class Passagem {
 		this.status = status;
 	}
 
-	public Date getDatahora() {
+	public DateTime getDatahora() {
 		return datahora;
 	}
 
-	public void setDatahora(Date datahora) {
+	public void setDatahora(DateTime datahora) {
 		this.datahora = datahora;
 	}
 
