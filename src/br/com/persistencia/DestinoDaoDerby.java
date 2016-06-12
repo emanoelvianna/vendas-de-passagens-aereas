@@ -13,7 +13,7 @@ public class DestinoDaoDerby implements DestinoDao {
 
 	@Override
 	public void inserir(Destino destino) throws DaoDestinoException {
-		String sql = "INSERT INTO DESTINO(CODIGO, NOME) VELUES(?, ?)";
+		String sql = "INSERT INTO DESTINO(CODIGO, NOME) VALUES(?, ?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {

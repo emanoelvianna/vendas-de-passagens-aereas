@@ -16,7 +16,7 @@ public class OrigemDaoDerby implements OrigemDao {
 
 	@Override
 	public void inserir(Origem origem) throws DaoOrigemException {
-		String sql = "INSERT INTO ORIGEM(CODIGO, NOME) VELUES(?, ?)";
+		String sql = "INSERT INTO ORIGEM(CODIGO, NOME) VALUES(?, ?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
