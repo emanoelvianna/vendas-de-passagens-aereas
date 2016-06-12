@@ -33,8 +33,8 @@ public class VooDaoDerby implements VooDao {
 				try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 					comando.setString(1, voo.getCodigo());
 					comando.setString(2, voo.getCompanhiaAerea().getCodigo());
-					comando.setString(3, voo.getOrigem().getCodigo());
-					comando.setString(4, voo.getDestino().getCodigo());
+					comando.setString(3, origem.getCodigo());
+					comando.setString(4, destino.getCodigo());
 					comando.setString(5, voo.getCodeshare());
 					comando.setInt(6, voo.getParadas());
 					comando.setString(7, voo.getEquipamento());

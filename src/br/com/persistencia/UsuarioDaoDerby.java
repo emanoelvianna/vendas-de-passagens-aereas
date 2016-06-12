@@ -34,12 +34,12 @@ public class UsuarioDaoDerby implements UsuarioDao {
 	}
 
     @Override
-    public Usuario buscarPorCodigo(int codigo) throws DaoUsuarioException {
+    public Usuario buscarPorCodigo(String codigo) throws DaoUsuarioException {
         String sql = "SELECT * FROM USUARIO WHERE CODIGO = ?";
         Usuario usuario = null;
         try (Connection conexao = Conexao.getConexao()) {
             try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-                comando.setInt(1, codigo);
+                comando.setString(1, codigo);
                 try (ResultSet resultado = comando.executeQuery()) {
                     if (resultado.next()) {
                     	usuario = new Usuario(

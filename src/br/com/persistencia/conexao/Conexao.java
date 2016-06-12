@@ -36,7 +36,7 @@ public class Conexao {
             String sqlUSUARIO = "CREATE TABLE USUARIO("
             		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
             		+ "LOGIN varchar(100) NOT NULL,"
-            		+ "SENHA varchar(30))";
+            		+ "SENHA varchar(30) NOT NULL)";
             sta.executeUpdate(sqlUSUARIO);
             
             String sqlAEROPORTO = "CREATE TABLE AEROPORTO("
@@ -55,10 +55,25 @@ public class Conexao {
             		+ "PARADAS int,"
             		+ "EQUIPAMENTO varchar(100),"
             		+ "ASSENTOS int,"
-            		+ "CONSTRAINT FK_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO),"
-            		+ "CONSTRAINT FK_ORIGEM FOREIGN KEY (CODIGOORIGEM) REFERENCES AEROPORTO(CODIGO),"
-            		+ "CONSTRAINT FK_DESTINO FOREIGN KEY (CODIGODESTINO) REFERENCES AEROPORTO(CODIGO))";
+            		+ "CONSTRAINT FK_VOO_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO),"
+            		+ "CONSTRAINT FK_VOO_ORIGEM FOREIGN KEY (CODIGOORIGEM) REFERENCES AEROPORTO(CODIGO),"
+            		+ "CONSTRAINT FK_VOO_DESTINO FOREIGN KEY (CODIGODESTINO) REFERENCES AEROPORTO(CODIGO))";
             sta.executeUpdate(sqlVOO); 
+            
+            String sqlPassagem = "CREATE TABLE PASSAGEM("
+            		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
+            		+ "CODIGOUSUARIO varchar(100) NOT NULL,"
+            		+ "COMPANHIA varchar(100) NOT NULL,"
+            		+ "NOMEPASSAGEIRO varchar(100) NOT NULL,"
+            		+ "STATUS varchar(100) NOT NULL,"
+            		+ "LIBERARCHECKIN int NOT NULL,"
+            		+ "DATAHORA DATE NOT NULL,"
+            		+ "ASSENTO int NOT NULL,"
+            		+ "DOCUMENTO varchar(100) NOT NULL,"
+            		+ "LOCALIZADOR int NOT NULL,"
+            		+ "CONSTRAINT FK_PASSAGEM_USUARIO FOREIGN KEY (CODIGOUSUARIO) REFERENCES USUARIO(CODIGO),"
+            		+ "CONSTRAINT FK_PASSAGEM_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO))";
+            sta.executeUpdate(sqlPassagem);
         }
     }
 
