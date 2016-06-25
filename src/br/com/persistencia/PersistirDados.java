@@ -4,15 +4,20 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
-import br.com.modelo.entidades.Aeroporto;
-import br.com.modelo.entidades.CompanhiaAerea;
-import br.com.modelo.entidades.Usuario;
-import br.com.modelo.entidades.Voo;
-import br.com.persistencia.dao.AeroportoDao;
-import br.com.persistencia.dao.CompanhiaAereaDao;
-import br.com.persistencia.dao.UsuarioDao;
-import br.com.persistencia.dao.VooDao;
+import org.joda.time.DateTime;
+
+import br.com.negocio.CompanhiaAerea;
+import br.com.negocio.dao.AeroportoDao;
+import br.com.negocio.dao.CompanhiaAereaDao;
+import br.com.negocio.dao.UsuarioDao;
+import br.com.negocio.dao.VooDao;
+import br.com.negocio.entidade.Aeroporto;
+import br.com.negocio.entidade.Usuario;
+import br.com.negocio.entidade.Voo;
+
+//TODO: A data passada para o construtor do voo deve ser gerada randomicamente 
 
 public class PersistirDados {
 
@@ -28,7 +33,7 @@ public class PersistirDados {
 	}
 
 	public void lerArquivoDeCompanhiasAereas() {
-		CompanhiaAereaDaoDerby companhiaAereaDaoDerby = new CompanhiaAereaDaoDerby();
+		CompanhiaAereaDao companhiaAereaDaoDerby = new CompanhiaAereaDaoDerby();
 		try {
 			br = new BufferedReader(new FileReader("dados/airlines.dat"));
 			// ignorando a primeira linha do arquivo
@@ -100,7 +105,8 @@ public class PersistirDados {
 				CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo(info[1]);
 				Aeroporto origem = aeroportoDao.buscarPorCodigo(info[2]);
 				Aeroporto destino = aeroportoDao.buscarPorCodigo(info[3]);
-				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6], 50);
+				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6],
+						50, new DateTime());
 				vooDaoDerby.inserir(voo);
 			}
 
@@ -151,5 +157,4 @@ public class PersistirDados {
 			}
 		}
 	}
-
 }

@@ -1,18 +1,23 @@
 package br.com.negocio;
 
-import java.util.Random;
-
 public class GeraNumeroLocalizadorSingleton {
-	private Random random;
+	private static GeraNumeroLocalizadorSingleton geraNumeroLocalizadorSingleton = null;
+	private int numeroLocalizador = 0000;
 
 	private GeraNumeroLocalizadorSingleton() {
-
+		// ** garante uma instancia unica.
+	}
+	
+	public static GeraNumeroLocalizadorSingleton getGeraNumeroLocalizadorSingleton() {
+		if (geraNumeroLocalizadorSingleton == null) {
+			return geraNumeroLocalizadorSingleton = new GeraNumeroLocalizadorSingleton();
+		} else {
+			return geraNumeroLocalizadorSingleton;
+		}
 	}
 
-	//TODO: Problema: mais um passageiro ter o mesmo número.
-	public Integer gerarNumeroLocalizador() {
-		random = new Random();
-		int numero = random.nextInt(10000);
-		return numero;
+	public int gerarNumeroLocalizador() {
+		return numeroLocalizador++;
 	}
+
 }

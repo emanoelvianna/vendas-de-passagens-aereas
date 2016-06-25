@@ -7,10 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.modelo.entidades.Aeroporto;
+import br.com.negocio.dao.AeroportoDao;
+import br.com.negocio.entidade.Aeroporto;
+import br.com.negocio.excecoes.DaoAeroportoException;
 import br.com.persistencia.conexao.Conexao;
-import br.com.persistencia.dao.AeroportoDao;
-import br.com.persistencia.excecoes.DaoAeroportoException;
 
 public class AeroportoDaoDerby implements AeroportoDao {
 

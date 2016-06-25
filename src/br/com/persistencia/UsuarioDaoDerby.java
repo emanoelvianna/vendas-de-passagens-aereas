@@ -7,10 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.modelo.entidades.Usuario;
+import br.com.negocio.dao.UsuarioDao;
+import br.com.negocio.entidade.Usuario;
+import br.com.negocio.excecoes.DaoUsuarioException;
 import br.com.persistencia.conexao.Conexao;
-import br.com.persistencia.dao.UsuarioDao;
-import br.com.persistencia.excecoes.DaoUsuarioException;
 
 public class UsuarioDaoDerby implements UsuarioDao {
 
@@ -78,5 +78,4 @@ public class UsuarioDaoDerby implements UsuarioDao {
 			throw new DaoUsuarioException("ERRO: falha ao tentar inserir usúario", e);
 		}
 	}
-
 }

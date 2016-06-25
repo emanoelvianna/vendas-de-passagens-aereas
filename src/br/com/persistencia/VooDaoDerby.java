@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-import br.com.modelo.entidades.Aeroporto;
-import br.com.modelo.entidades.Voo;
+import br.com.negocio.dao.AeroportoDao;
+import br.com.negocio.dao.VooDao;
+import br.com.negocio.entidade.Aeroporto;
+import br.com.negocio.entidade.Voo;
+import br.com.negocio.excecoes.DaoUsuarioException;
+import br.com.negocio.excecoes.DaoVooException;
 import br.com.persistencia.conexao.Conexao;
-import br.com.persistencia.dao.AeroportoDao;
-import br.com.persistencia.dao.VooDao;
-import br.com.persistencia.excecoes.DaoUsuarioException;
-import br.com.persistencia.excecoes.DaoVooException;
 
 public class VooDaoDerby implements VooDao {
 
@@ -18,7 +18,7 @@ public class VooDaoDerby implements VooDao {
 
 	@Override
 	public void inserir(Voo voo) throws DaoVooException {
-		String sql = "INSERT INTO VOO(CODIGO, COMPANHIA, CODIGOORIGEM, CODIGODESTINO, CODESHARE, PARADAS, EQUIPAMENTO, ASSENTOS) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO VOO(CODIGO, COMPANHIA, CODIGOORIGEM, CODIGODESTINO, CODESHARE, PARADAS, EQUIPAMENTO, ASSENTOS, DATAHORA) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int resultado = 0;
 		try {
 			// recupera origem
@@ -39,6 +39,7 @@ public class VooDaoDerby implements VooDao {
 					comando.setInt(6, voo.getParadas());
 					comando.setString(7, voo.getEquipamento());
 					comando.setInt(8, voo.getNumeroDeAssentos());
+					comando.setString(9, voo.getData().toString());
 					resultado = comando.executeUpdate();
 				}
 			}

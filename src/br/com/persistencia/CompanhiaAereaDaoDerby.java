@@ -7,12 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.modelo.entidades.CompanhiaAerea;
-import br.com.modelo.entidades.Usuario;
+import br.com.negocio.CompanhiaAerea;
+import br.com.negocio.dao.CompanhiaAereaDao;
+import br.com.negocio.entidade.Usuario;
+import br.com.negocio.excecoes.DaoCompanhiaAereaException;
+import br.com.negocio.excecoes.DaoUsuarioException;
 import br.com.persistencia.conexao.Conexao;
-import br.com.persistencia.dao.CompanhiaAereaDao;
-import br.com.persistencia.excecoes.DaoCompanhiaAereaException;
-import br.com.persistencia.excecoes.DaoUsuarioException;
 
 public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 

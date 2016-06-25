@@ -5,14 +5,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-import br.com.modelo.entidades.CompanhiaAerea;
-import br.com.modelo.entidades.Passagem;
-import br.com.modelo.entidades.Usuario;
+import br.com.negocio.CompanhiaAerea;
+import br.com.negocio.dao.CompanhiaAereaDao;
+import br.com.negocio.dao.PassagemDao;
+import br.com.negocio.dao.UsuarioDao;
+import br.com.negocio.entidade.Passagem;
+import br.com.negocio.entidade.Usuario;
+import br.com.negocio.excecoes.DaoPassagemException;
 import br.com.persistencia.conexao.Conexao;
-import br.com.persistencia.dao.CompanhiaAereaDao;
-import br.com.persistencia.dao.PassagemDao;
-import br.com.persistencia.dao.UsuarioDao;
-import br.com.persistencia.excecoes.DaoPassagemException;
 
 public class PassagemDaoDerby implements PassagemDao {
 
@@ -21,7 +21,7 @@ public class PassagemDaoDerby implements PassagemDao {
 
 	@Override
 	public void inserir(Passagem passagem) throws DaoPassagemException {
-		String sql = "INSERT INTO PASSAGEM(CODIGO, CODIGOUSUARIO, COMPANHIA, NOMEPASSAGEIRO, STATUS, LIBERARCHECKIN, DATAHORA, ASSENTO, DOCUMENTO, LOCALIZADOR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO PASSAGEM(CODIGO, CODIGOUSUARIO, COMPANHIA, NOMEPASSAGEIRO, STATUS, LIBERARCHECKIN, DATAHORA, ASSENTO, DOCUMENTO, LOCALIZADOR, VALOR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
 
@@ -39,6 +39,7 @@ public class PassagemDaoDerby implements PassagemDao {
 				statement.setInt(8, passagem.getNumeroAssento());
 				statement.setString(9, passagem.getDocumento().toString());
 				statement.setInt(10, passagem.getNumeroLocalizador());
+				statement.setInt(11, passagem.getNumeroLocalizador());
 				resultado = statement.executeUpdate();
 			}
 		} catch (Exception e) {

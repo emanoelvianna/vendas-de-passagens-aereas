@@ -55,6 +55,7 @@ public class Conexao {
             		+ "PARADAS int,"
             		+ "EQUIPAMENTO varchar(100),"
             		+ "ASSENTOS int,"
+            		+ "DATAHORA varchar(100) NOT NULL,"
             		+ "CONSTRAINT FK_VOO_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO),"
             		+ "CONSTRAINT FK_VOO_ORIGEM FOREIGN KEY (CODIGOORIGEM) REFERENCES AEROPORTO(CODIGO),"
             		+ "CONSTRAINT FK_VOO_DESTINO FOREIGN KEY (CODIGODESTINO) REFERENCES AEROPORTO(CODIGO))";
@@ -71,6 +72,7 @@ public class Conexao {
             		+ "ASSENTO int NOT NULL,"
             		+ "DOCUMENTO varchar(100) NOT NULL,"
             		+ "LOCALIZADOR int NOT NULL,"
+            		+ "VALOR DECIMAL(10,2) NOT NULL,"
             		+ "CONSTRAINT FK_PASSAGEM_USUARIO FOREIGN KEY (CODIGOUSUARIO) REFERENCES USUARIO(CODIGO),"
             		+ "CONSTRAINT FK_PASSAGEM_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO))";
             sta.executeUpdate(sqlPassagem);
