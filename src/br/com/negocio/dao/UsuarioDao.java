@@ -11,4 +11,6 @@ public interface UsuarioDao {
 	public Usuario buscarPorCodigo(String codigo) throws DaoUsuarioException;
 
 	public List<Usuario> buscarTodos() throws DaoUsuarioException;
+	
+	public Usuario validarUsuario(String login, String senha);
 }

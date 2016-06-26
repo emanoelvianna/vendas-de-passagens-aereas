@@ -2,12 +2,12 @@ package br.com.negocio;
 
 public class GeraNumeroLocalizadorSingleton {
 	private static GeraNumeroLocalizadorSingleton geraNumeroLocalizadorSingleton = null;
-	private int numeroLocalizador = 0000;
+	private int numeroLocalizador = 1;
 
 	private GeraNumeroLocalizadorSingleton() {
 		// ** garante uma instancia unica.
 	}
-	
+
 	public static GeraNumeroLocalizadorSingleton getGeraNumeroLocalizadorSingleton() {
 		if (geraNumeroLocalizadorSingleton == null) {
 			return geraNumeroLocalizadorSingleton = new GeraNumeroLocalizadorSingleton();
@@ -19,5 +19,4 @@ public class GeraNumeroLocalizadorSingleton {
 	public int gerarNumeroLocalizador() {
 		return numeroLocalizador++;
 	}
-
 }

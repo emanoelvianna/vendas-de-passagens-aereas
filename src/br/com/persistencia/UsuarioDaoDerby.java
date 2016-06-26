@@ -78,4 +78,32 @@ public class UsuarioDaoDerby implements UsuarioDao {
 			throw new DaoUsuarioException("ERRO: falha ao tentar inserir usúario", e);
 		}
 	}
+
+	@Override
+	public Usuario validarUsuario(String login, String senha) {
+        String sql = "SELECT * FROM USUARIO WHERE LOGIN = ? AND SENHA = ?";
+        Usuario usuario = null;
+        try (Connection conexao = Conexao.getConexao()) {
+            try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                comando.setString(1, login);
+                comando.setString(2, senha);
+                try (ResultSet resultado = comando.executeQuery()) {
+                    if (resultado.next()) {
+                    	usuario = new Usuario(
+                    			resultado.getString("codigo"),
+                                resultado.getString("login"),
+                                resultado.getString("senha")
+                        );
+                    }
+                    return usuario;
+                }
+            }
+        }catch (DaoUsuarioException daoUsuarioException) {
+        	new DaoUsuarioException("Erro: tentativa de validar usuário falhou" + daoUsuarioException);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de validar usuário falhou" + e);
+        }
+		return usuario;
+	}
 }

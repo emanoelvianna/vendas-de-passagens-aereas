@@ -4,8 +4,9 @@ public class CalculoFuncionario implements CalculaPassagem {
 
 	@Override
 	public double descontoPromocao(double valorPassagem) {
-		// TODO Auto-generated method stub
-		return 0;
+		double desconto = 10;
+		double calculo = desconto * valorPassagem;
+		return calculo / 100;
 	}
 
 }

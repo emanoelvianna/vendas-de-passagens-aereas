@@ -11,4 +11,8 @@ public interface VooDao {
 	public Voo buscarPorCodigo(Integer codigo) throws DaoVooException;
 
 	public List<Voo> buscarTodos() throws DaoVooException;
+	
+	public List<Voo> buscarListaOrigem() throws DaoVooException;
+	
+	public List<Voo> buscarListaDestino(Voo origem) throws DaoVooException;
 }

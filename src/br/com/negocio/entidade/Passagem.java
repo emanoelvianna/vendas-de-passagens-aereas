@@ -6,7 +6,6 @@ import br.com.negocio.enumeracao.Documento;
 import br.com.negocio.enumeracao.Status;
 
 public class Passagem {
-	private String codigo;
 	private String nomePassageiro;
 	private Status status;
 	private DateTime datahora;
@@ -15,13 +14,10 @@ public class Passagem {
 	private Documento documento;
 	private int checkin;
 	private String codigoUsuario;
-	private String companhiaAerea;
 	private double valor;
 
-	public Passagem(String codigo, String nomePassageiro, Status status, DateTime datahora, int numeroAssento,
-			int numeroLocalizador, Documento documento, int checkin, String codigoUsuario, String companhiaAerea,
-			double valor) {
-		this.codigo = codigo;
+	public Passagem(String nomePassageiro, Status status, DateTime datahora, int numeroAssento,
+			int numeroLocalizador, Documento documento, int checkin, String codigoUsuario, double valor) {
 		this.nomePassageiro = nomePassageiro;
 		this.status = status;
 		this.datahora = datahora;
@@ -30,16 +26,7 @@ public class Passagem {
 		this.documento = documento;
 		this.checkin = checkin;
 		this.codigoUsuario = codigoUsuario;
-		this.companhiaAerea = companhiaAerea;
 		this.valor = valor;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getNomePassageiro() {
@@ -104,14 +91,6 @@ public class Passagem {
 
 	public void setLogin(String codigoUsuario) {
 		this.codigoUsuario = codigoUsuario;
-	}
-
-	public String getCompanhiaAerea() {
-		return companhiaAerea;
-	}
-
-	public void setCompanhiaAerea(String companhiaAerea) {
-		this.companhiaAerea = companhiaAerea;
 	}
 
 	public double getValor() {

@@ -62,7 +62,7 @@ public class Conexao {
             sta.executeUpdate(sqlVOO); 
             
             String sqlPassagem = "CREATE TABLE PASSAGEM("
-            		+ "CODIGO varchar(100) PRIMARY KEY NOT NULL,"
+            		+ "CODIGO INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," 
             		+ "CODIGOUSUARIO varchar(100) NOT NULL,"
             		+ "COMPANHIA varchar(100) NOT NULL,"
             		+ "NOMEPASSAGEIRO varchar(100) NOT NULL,"
@@ -76,6 +76,14 @@ public class Conexao {
             		+ "CONSTRAINT FK_PASSAGEM_USUARIO FOREIGN KEY (CODIGOUSUARIO) REFERENCES USUARIO(CODIGO),"
             		+ "CONSTRAINT FK_PASSAGEM_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO))";
             sta.executeUpdate(sqlPassagem);
+            
+            String sqlAeroportoVoo = "CREATE TABLE AEROPORTOVOO("
+                    + "CODIGOVOO varchar(100) NOT NULL,"
+                    + "CODIGOAEROPORTO varchar(100) NOT NULL,"
+                    + "CONSTRAINT PK_AEROPORTOVOO PRIMARY KEY (CODIGOVOO,CODIGOAEROPORTO),"
+                    + "CONSTRAINT FK_VOO FOREIGN KEY (CODIGOVOO) REFERENCES VOO(CODIGO),"
+                    + "CONSTRAINT FK_AEROPORTO FOREIGN KEY (CODIGOAEROPORTO) REFERENCES AEROPORTO(CODIGO))";
+            sta.executeUpdate(sqlAeroportoVoo);
         }
     }
 

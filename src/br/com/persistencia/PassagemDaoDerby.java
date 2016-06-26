@@ -21,25 +21,24 @@ public class PassagemDaoDerby implements PassagemDao {
 
 	@Override
 	public void inserir(Passagem passagem) throws DaoPassagemException {
-		String sql = "INSERT INTO PASSAGEM(CODIGO, CODIGOUSUARIO, COMPANHIA, NOMEPASSAGEIRO, STATUS, LIBERARCHECKIN, DATAHORA, ASSENTO, DOCUMENTO, LOCALIZADOR, VALOR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO PASSAGEM(CODIGOUSUARIO, COMPANHIA, NOMEPASSAGEIRO, STATUS, LIBERARCHECKIN, DATAHORA, ASSENTO, DOCUMENTO, LOCALIZADOR, VALOR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
 
-			CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo(passagem.getCompanhiaAerea());
+			CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo("ACME");
 			Usuario usuario = usuarioDao.buscarPorCodigo(passagem.getCodigoUsuario());
 
 			try (PreparedStatement statement = conexao.prepareStatement(sql)) {
-				statement.setString(1, passagem.getCodigo());
-				statement.setString(2, usuario.getCodigo());
-				statement.setString(3, companhiaAerea.getCodigo());
-				statement.setString(4, passagem.getNomePassageiro());
-				statement.setString(5, passagem.getStatus().toString());
-				statement.setInt(6, passagem.getCheckin());
-				statement.setString(7, passagem.getDatahora().toString());
-				statement.setInt(8, passagem.getNumeroAssento());
-				statement.setString(9, passagem.getDocumento().toString());
-				statement.setInt(10, passagem.getNumeroLocalizador());
-				statement.setInt(11, passagem.getNumeroLocalizador());
+				statement.setString(1, usuario.getCodigo());
+				statement.setString(2, companhiaAerea.getCodigo());
+				statement.setString(3, passagem.getNomePassageiro());
+				statement.setString(4, passagem.getStatus().toString());
+				statement.setInt(5, passagem.getCheckin());
+				statement.setString(6, passagem.getDatahora().toString());
+				statement.setInt(7, passagem.getNumeroAssento());
+				statement.setString(8, passagem.getDocumento().toString());
+				statement.setInt(9, passagem.getNumeroLocalizador());
+				statement.setDouble(10, passagem.getValor());
 				resultado = statement.executeUpdate();
 			}
 		} catch (Exception e) {

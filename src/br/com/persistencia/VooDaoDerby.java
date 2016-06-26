@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.AeroportoDao;
 import br.com.negocio.dao.VooDao;
 import br.com.negocio.entidade.Aeroporto;
 import br.com.negocio.entidade.Voo;
-import br.com.negocio.excecoes.DaoUsuarioException;
 import br.com.negocio.excecoes.DaoVooException;
 import br.com.persistencia.conexao.Conexao;
 
@@ -54,13 +54,41 @@ public class VooDaoDerby implements VooDao {
 
 	@Override
 	public Voo buscarPorCodigo(Integer codigo) throws DaoVooException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public List<Voo> buscarTodos() throws DaoVooException {
-		// TODO Auto-generated method stub
+		CompanhiaAerea companhiaAerea = null;
+		Aeroporto aeroportoOrigem = null;
+		Aeroporto aeroportoDestino = null;
+		
+		String sql = "SELECT * FROM VOO";
+		String sqlCompanhiaAerea = "SELECT * FROM COMPANHIA WHERE CODIGO = ?";
+		String sqlAeroporto = "SELECT * FROM AEROPORTO WHERE CODIGO = ?";
+
+		
+		
+		return null;
+	}
+
+	public List<Voo> buscarListaOrigem() throws DaoVooException {
+		CompanhiaAerea companhiaAerea = null;
+		String sql = "SELECT * FROM VOO";
+		String sqlCompanhiaAerea = "SELECT * FROM COMPANHIA WHERE CODIGO = ?";
+		String sqlAeroportoOrigem = "SELECT * FROM AEROPORTO WHERE CODIGO = ?";
+
+		try (Connection conexao = Conexao.getConexao()) {
+
+		} catch (Exception e) {
+			new Exception("Erro ao buscar todos os voos");
+		}
+		return null;
+	}
+
+	@Override
+	public List<Voo> buscarListaDestino(Voo origem) throws DaoVooException {
 		return null;
 	}
 
