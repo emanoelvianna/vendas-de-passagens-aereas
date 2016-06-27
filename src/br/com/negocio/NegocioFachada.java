@@ -53,7 +53,6 @@ public class NegocioFachada {
 		} catch (DaoPassagemException daoPassagemException) {
 			System.out.println("Erro ao tenatr inserir a passagem comprada no banco de dados" + daoPassagemException);
 		}
-		System.out.println(valorPassagem);
 		return numeroLocalizador;
 	}
 

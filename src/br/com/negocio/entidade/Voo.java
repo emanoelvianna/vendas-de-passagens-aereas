@@ -1,8 +1,6 @@
 package br.com.negocio.entidade;
 
-import java.sql.Date;
-
-import org.joda.time.DateTime;
+import java.util.Date;
 
 import br.com.negocio.CompanhiaAerea;
 
@@ -17,8 +15,8 @@ public class Voo {
 	private int numeroDeAssentos;
 	private Date data;
 
-	public Voo(String codigo, CompanhiaAerea companhiaAerea, Aeroporto origem, Aeroporto destino, String codeshare,
-			int paradas, String equipamento, int numeroDeAssentos, Date data) {
+	public Voo(String codigo, CompanhiaAerea companhiaAerea, Aeroporto origem, Aeroporto destino, String codeshare, int paradas, String equipamento,
+			int numeroDeAssentos, Date data) {
 		this.codigo = codigo;
 		this.companhiaAerea = companhiaAerea;
 		this.origem = origem;

@@ -1,6 +1,7 @@
 package br.com.persistencia;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +34,8 @@ public class VooDaoDerby implements VooDao {
 			// recupera destino
 			String codDestino = voo.getDestino().getCodigo();
 			Aeroporto destino = aeroportoDao.buscarPorCodigo(codDestino);
+			
+			Date date = new java.sql.Date(voo.getData().getTime());
 
 			try (Connection conexao = Conexao.getConexao()) {
 				try (PreparedStatement comando = conexao.prepareStatement(sql)) {
@@ -44,7 +47,7 @@ public class VooDaoDerby implements VooDao {
 					comando.setInt(6, voo.getParadas());
 					comando.setString(7, voo.getEquipamento());
 					comando.setInt(8, voo.getNumeroDeAssentos());
-					comando.setDate(9, voo.getData());
+					comando.setDate(9, date);
 					resultado = comando.executeUpdate();
 				}
 			}

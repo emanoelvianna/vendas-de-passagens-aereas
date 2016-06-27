@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.AeroportoDao;
@@ -94,17 +95,18 @@ public class PersistirDados {
 		VooDao vooDaoDerby = new VooDaoDerby();
 		AeroportoDao aeroportoDao = new AeroportoDaoDerby();
 		CompanhiaAereaDao companhiaAereaDao = new CompanhiaAereaDaoDerby();
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");		
 		try {
 			br = new BufferedReader(new FileReader("dados/rotas.csv"));
 			// ignorando a primeira linha do arquivo
 			br.readLine();
 			while ((linha = br.readLine()) != null) {
+				Date data = formato.parse("23/11/2015");
 				String[] info = linha.split(divisor);
 				CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo(info[1]);
 				Aeroporto origem = aeroportoDao.buscarPorCodigo(info[2]);
 				Aeroporto destino = aeroportoDao.buscarPorCodigo(info[3]);
-				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6], 50,
-						new Date(System.currentTimeMillis()));
+				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6], 50, data);
 				vooDaoDerby.inserir(voo);
 			}
 
