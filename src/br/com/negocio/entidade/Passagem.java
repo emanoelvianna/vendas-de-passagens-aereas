@@ -1,5 +1,7 @@
 package br.com.negocio.entidade;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
 
 import br.com.negocio.enumeracao.Documento;
@@ -8,7 +10,7 @@ import br.com.negocio.enumeracao.Status;
 public class Passagem {
 	private String nomePassageiro;
 	private Status status;
-	private DateTime datahora;
+	private Date datahora;
 	private int numeroAssento;
 	private int numeroLocalizador;
 	private Documento documento;
@@ -16,7 +18,7 @@ public class Passagem {
 	private String codigoUsuario;
 	private double valor;
 
-	public Passagem(String nomePassageiro, Status status, DateTime datahora, int numeroAssento,
+	public Passagem(String nomePassageiro, Status status, Date datahora, int numeroAssento,
 			int numeroLocalizador, Documento documento, int checkin, String codigoUsuario, double valor) {
 		this.nomePassageiro = nomePassageiro;
 		this.status = status;
@@ -45,11 +47,11 @@ public class Passagem {
 		this.status = status;
 	}
 
-	public DateTime getDatahora() {
+	public Date getDatahora() {
 		return datahora;
 	}
 
-	public void setDatahora(DateTime datahora) {
+	public void setDatahora(Date datahora) {
 		this.datahora = datahora;
 	}
 

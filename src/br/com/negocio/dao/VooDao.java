@@ -1,5 +1,6 @@
 package br.com.negocio.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.negocio.entidade.Aeroporto;
@@ -16,4 +17,6 @@ public interface VooDao {
 	public List<Aeroporto> buscarOrigem() throws DaoVooException;
 	
 	public List<Aeroporto> buscarDestino(String origem) throws DaoVooException;
+	
+	public List<String> buscaDatasDoVoo(String voo) throws DaoVooException;
 }

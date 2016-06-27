@@ -1,12 +1,12 @@
 package br.com.negocio;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
-import br.com.negocio.dao.AeroportoDao;
 import br.com.negocio.dao.PassagemDao;
 import br.com.negocio.dao.UsuarioDao;
 import br.com.negocio.entidade.Aeroporto;
@@ -17,7 +17,6 @@ import br.com.negocio.enumeracao.Status;
 import br.com.negocio.enumeracao.TipoPassagem;
 import br.com.negocio.excecoes.DaoPassagemException;
 import br.com.negocio.excecoes.DaoVooException;
-import br.com.persistencia.AeroportoDaoDerby;
 import br.com.persistencia.PassagemDaoDerby;
 import br.com.persistencia.PersistirDados;
 import br.com.persistencia.UsuarioDaoDerby;
@@ -41,13 +40,20 @@ public class NegocioFachada {
 		usuario = usuarioDao.validarUsuario(login, senha);
 	}
 
-	public int comprarPassagem(String nomePassageiro, Documento documento, TipoPassagem tipoPassagem, Aeroporto origem, Aeroporto destino,
-			DateTime dataHora) {
-
+	public int comprarPassagem(String nome, String documento, String tipoPassagem, String aeroportoOrigem, String aeroportoDestino, String data) throws ParseException {
+		Documento documentoSelecionado = Documento.valueOf(documento);
+		TipoPassagem passagemSelecionado = TipoPassagem.valueOf(tipoPassagem);
+		
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		Date d = formato.parse("23/11/2015");
+		
+		System.out.println(d);
+		
 		GeraNumeroLocalizadorSingleton geraNumeroLocalizadorSingleton = GeraNumeroLocalizadorSingleton.getGeraNumeroLocalizadorSingleton();
 		int numeroLocalizador = geraNumeroLocalizadorSingleton.gerarNumeroLocalizador();
-		double valorPassagem = calculaDesconto(tipoPassagem);
-		passagem = new Passagem(nomePassageiro, Status.PENDENTE, dataHora, 0, numeroLocalizador, documento, 0, usuario.getCodigo(), valorPassagem);
+		double valorPassagem = calculaDesconto(passagemSelecionado);
+		
+		passagem = new Passagem(nome, Status.PENDENTE, d, 0, numeroLocalizador, documentoSelecionado, 0, usuario.getCodigo(), valorPassagem);
 		try {
 			passagemDao.inserir(passagem);
 		} catch (DaoPassagemException daoPassagemException) {
@@ -90,6 +96,16 @@ public class NegocioFachada {
 		List<Aeroporto> lista = new ArrayList<>();
 		try {
 			lista = vooDaoDerby.buscarDestino(origem);
+		} catch (DaoVooException e) {
+			new DaoVooException("Erro: não conseguiu buscar lista de aeroportos", e);
+		}
+		return lista;
+	}
+	
+	public List<String> buscarDatasVoo(String voo) {
+		List<String> lista = new ArrayList<>();
+		try {
+			lista = vooDaoDerby.buscaDatasDoVoo(voo);
 		} catch (DaoVooException e) {
 			new DaoVooException("Erro: não conseguiu buscar lista de aeroportos", e);
 		}

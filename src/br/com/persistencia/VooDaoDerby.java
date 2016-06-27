@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.AeroportoDao;
 import br.com.negocio.dao.CompanhiaAereaDao;
 import br.com.negocio.dao.VooDao;
@@ -163,6 +161,42 @@ public class VooDaoDerby implements VooDao {
 						);
 						if(voo.getOrigem().getNome().equals(origem))
 							lista.add(voo.getDestino());
+					}
+					return lista;
+				}
+			}
+		} catch (Exception e) {
+            throw new DaoVooException("Falha na busca: " + e.getMessage(), e);
+        }
+	}
+
+	@Override
+	public List<String> buscaDatasDoVoo(String origem) throws DaoVooException {
+		List<String> lista = new ArrayList<>();
+		
+		CompanhiaAereaDao companhiaAereaDao = new CompanhiaAereaDaoDerby();
+		AeroportoDao aeroportoDao = new AeroportoDaoDerby();
+
+		String sql = "SELECT * FROM VOO";
+
+		try (Connection conexao = Conexao.getConexao()) {
+			try (Statement comandoVoos = conexao.createStatement()) {
+				try (ResultSet resultadoVoos = comandoVoos.executeQuery(sql)) {
+					// Para cada linha da tabela voo
+					while (resultadoVoos.next()) {
+						Voo voo = new Voo(
+								resultadoVoos.getString("CODIGO"), 
+								companhiaAereaDao.buscarPorCodigo(resultadoVoos.getString("COMPANHIA")), 
+								aeroportoDao.buscarPorCodigo(resultadoVoos.getString("CODIGOORIGEM")), 
+								aeroportoDao.buscarPorCodigo(resultadoVoos.getString("CODIGODESTINO")), 
+								resultadoVoos.getString("CODESHARE"), 
+								resultadoVoos.getInt("PARADAS"), 
+								resultadoVoos.getString("EQUIPAMENTO"), 
+								resultadoVoos.getInt("ASSENTOS"), 
+								resultadoVoos.getDate("DATAHORA")
+						);
+						if(voo.getOrigem().getNome().equals(origem))
+							lista.add(voo.getData().toString());
 					}
 					return lista;
 				}
