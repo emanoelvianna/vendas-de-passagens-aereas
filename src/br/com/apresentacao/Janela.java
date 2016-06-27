@@ -2,6 +2,8 @@ package br.com.apresentacao;
 
 import java.util.List;
 
+import javax.swing.event.PopupMenuEvent;
+
 import org.joda.time.DateTime;
 
 import br.com.negocio.NegocioFachada;
@@ -70,21 +72,7 @@ public class Janela extends javax.swing.JFrame {
 			jComboBox4.addItem(item);
 		}
 
-		jLabel2.setText("Origem:");
-
-		// lista de aeroportos de origem
-		List<String> listaOrigem = comprarPassagemControlador.getOrigem();
-		for (String item : listaOrigem) {
-			jComboBox1.addItem(item);
-		}
-
 		jLabel3.setText("Destino:");
-
-		// lista de aeroportos de destino
-		List<String> listaDestino = comprarPassagemControlador.getDestino();
-		for (String item : listaDestino) {
-			jComboBox3.addItem(item);
-		}
 
 		jButton1.setText("voltar");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +80,34 @@ public class Janela extends javax.swing.JFrame {
 				jButton1ActionPerformed(evt);
 			}
 		});
+
+		jLabel2.setText("Origem:");
+
+		jComboBox1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+			}
+
+			public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+			}
+
+			public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+				jComboBox1PopupMenuWillBecomeVisible(evt);
+			}
+		});
+		
+		
+		jComboBox3.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+			}
+
+			public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+			}
+
+			public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+				jComboBox3PopupMenuWillBecomeVisible(evt);
+			}
+		});
+		
 
 		jButton2.setText("comprar");
 
@@ -171,10 +187,30 @@ public class Janela extends javax.swing.JFrame {
 		// TODO add your handling code here:
 	}
 
+	private void jComboBox1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+		// lista de aeroportos de origem
+		List<String> listaOrigem = comprarPassagemControlador.getOrigem();
+		for (String item : listaOrigem) {
+			jComboBox1.addItem(item);
+		}
+		System.out.println(jComboBox1.getSelectedItem().toString());
+	}
+	
+	private void jComboBox3PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+		List<String> listaDestino = comprarPassagemControlador.getDestino(jComboBox1.getSelectedItem().toString());
+		for (String string : listaDestino) {
+			System.out.println(string);
+		}
+		// lista de aeroportos de destino
+		for (String item : listaDestino) {
+			jComboBox3.addItem(item);
+		}
+	}
+
 	public static void main(String args[]) {
 
 		NegocioFachada fachada = new NegocioFachada();
-		fachada.criarBaseDeDados();
+		// fachada.criarBaseDeDados();
 
 		// ** simulando o login no sistema
 		fachada.login("lmontgomery0@dmoz.org", "iodl65DoE4ZI");

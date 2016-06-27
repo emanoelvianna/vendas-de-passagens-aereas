@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
-
-import org.joda.time.DateTime;
+import java.sql.Date;
 
 import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.AeroportoDao;
@@ -105,8 +103,8 @@ public class PersistirDados {
 				CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo(info[1]);
 				Aeroporto origem = aeroportoDao.buscarPorCodigo(info[2]);
 				Aeroporto destino = aeroportoDao.buscarPorCodigo(info[3]);
-				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6],
-						50, new DateTime());
+				Voo voo = new Voo(info[0], companhiaAerea, origem, destino, info[4], Integer.parseInt(info[5]), info[6], 50,
+						new Date(System.currentTimeMillis()));
 				vooDaoDerby.inserir(voo);
 			}
 

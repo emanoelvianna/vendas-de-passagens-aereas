@@ -24,11 +24,11 @@ public class ComprarAeroportoControlador {
 	}
 
 	public List<String> getOrigem() {
-		return toListString(fachada.buscarTodosOsAeroportos());
+		return toListString(fachada.buscarAeroportosOrigem());
 	}
 
-	public List<String> getDestino() {
-		return toListString(fachada.buscarTodosOsAeroportos());
+	public List<String> getDestino(String origem) {
+		return toListString(fachada.buscarAeroportosDestino(origem));
 	}
 
 }

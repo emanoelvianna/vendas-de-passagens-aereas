@@ -1,5 +1,7 @@
 package br.com.negocio.entidade;
 
+import java.sql.Date;
+
 import org.joda.time.DateTime;
 
 import br.com.negocio.CompanhiaAerea;
@@ -13,10 +15,10 @@ public class Voo {
 	private int paradas;
 	private String equipamento;
 	private int numeroDeAssentos;
-	private DateTime data;
+	private Date data;
 
 	public Voo(String codigo, CompanhiaAerea companhiaAerea, Aeroporto origem, Aeroporto destino, String codeshare,
-			int paradas, String equipamento, int numeroDeAssentos, DateTime data) {
+			int paradas, String equipamento, int numeroDeAssentos, Date data) {
 		this.codigo = codigo;
 		this.companhiaAerea = companhiaAerea;
 		this.origem = origem;
@@ -92,11 +94,11 @@ public class Voo {
 		this.companhiaAerea = companhiaAerea;
 	}
 
-	public DateTime getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(DateTime data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
