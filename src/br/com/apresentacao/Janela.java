@@ -193,14 +193,10 @@ public class Janela extends javax.swing.JFrame {
 		for (String item : listaOrigem) {
 			jComboBox1.addItem(item);
 		}
-		System.out.println(jComboBox1.getSelectedItem().toString());
 	}
 	
 	private void jComboBox3PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
 		List<String> listaDestino = comprarPassagemControlador.getDestino(jComboBox1.getSelectedItem().toString());
-		for (String string : listaDestino) {
-			System.out.println(string);
-		}
 		// lista de aeroportos de destino
 		for (String item : listaDestino) {
 			jComboBox3.addItem(item);
@@ -208,9 +204,8 @@ public class Janela extends javax.swing.JFrame {
 	}
 
 	public static void main(String args[]) {
-
 		NegocioFachada fachada = new NegocioFachada();
-		// fachada.criarBaseDeDados();
+		fachada.criarBaseDeDados();
 
 		// ** simulando o login no sistema
 		fachada.login("lmontgomery0@dmoz.org", "iodl65DoE4ZI");

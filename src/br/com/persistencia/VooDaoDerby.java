@@ -158,10 +158,8 @@ public class VooDaoDerby implements VooDao {
 								resultadoVoos.getInt("ASSENTOS"), 
 								resultadoVoos.getDate("DATAHORA")
 						);
-						if(voo.getOrigem().getNome().equals(origem)){
-							System.out.println("entrou aqui!");
+						if(voo.getOrigem().getNome().equals(origem))
 							lista.add(voo.getDestino());
-						}
 					}
 					return lista;
 				}
