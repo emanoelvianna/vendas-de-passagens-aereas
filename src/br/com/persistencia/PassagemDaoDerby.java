@@ -5,10 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.CompanhiaAereaDao;
 import br.com.negocio.dao.PassagemDao;
 import br.com.negocio.dao.UsuarioDao;
+import br.com.negocio.entidade.CompanhiaAerea;
 import br.com.negocio.entidade.Passagem;
 import br.com.negocio.entidade.Usuario;
 import br.com.negocio.excecoes.DaoPassagemException;

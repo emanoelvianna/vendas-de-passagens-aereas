@@ -1,4 +1,4 @@
-package br.com.negocio;
+package br.com.negocio.entidade;
 
 public class CompanhiaAerea {
 

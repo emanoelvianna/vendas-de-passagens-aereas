@@ -2,8 +2,6 @@ package br.com.negocio.entidade;
 
 import java.util.Date;
 
-import br.com.negocio.CompanhiaAerea;
-
 public class Voo {
 	private String codigo;
 	private CompanhiaAerea companhiaAerea;

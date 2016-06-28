@@ -17,13 +17,13 @@ public class CalculaPassagemSingleton {
 
 	public CalculaPassagem createInstance(TipoPassagem tipoPassagem) {
 		switch (tipoPassagem) {
-		case Estudante:
+		case ESTUDANTE:
 			// 15% de desconto para estudantes 
 			return new CalculoEstudante();
-		case Funcionario:
+		case FUNCIONARIO:
 			// 10% de desconto para estudantes 
 			return new CalculoFuncionario();
-		case Normal:
+		case NORMAL:
 			// retorna o valor normal da passagem, sem desconto
 			return new CalculoNormal();
 		}

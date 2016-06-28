@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.AeroportoDao;
 import br.com.negocio.dao.CompanhiaAereaDao;
 import br.com.negocio.dao.UsuarioDao;
 import br.com.negocio.dao.VooDao;
 import br.com.negocio.entidade.Aeroporto;
+import br.com.negocio.entidade.CompanhiaAerea;
 import br.com.negocio.entidade.Usuario;
 import br.com.negocio.entidade.Voo;
 

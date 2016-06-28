@@ -285,7 +285,7 @@ public class Janela extends javax.swing.JFrame {
 
 	public static void main(String args[]) {
 		NegocioFachada fachada = new NegocioFachada();
-		//fachada.criarBaseDeDados();
+		fachada.criarBaseDeDados();
 
 		// ** simulando o login no sistema
 		fachada.login("lmontgomery0@dmoz.org", "iodl65DoE4ZI");

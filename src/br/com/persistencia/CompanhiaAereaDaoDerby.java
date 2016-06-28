@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.negocio.CompanhiaAerea;
 import br.com.negocio.dao.CompanhiaAereaDao;
+import br.com.negocio.entidade.CompanhiaAerea;
 import br.com.negocio.entidade.Usuario;
 import br.com.negocio.excecoes.DaoCompanhiaAereaException;
 import br.com.negocio.excecoes.DaoUsuarioException;
