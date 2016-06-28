@@ -101,4 +101,8 @@ public class JanelaNumeroLocalizador extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JTextField jTextField1;
 	// End of variables declaration
+	
+	public void setLocalizador(int localizador) {
+		jTextField1.setText(String.valueOf(localizador));
+	}
 }
