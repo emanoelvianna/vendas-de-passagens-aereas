@@ -94,7 +94,7 @@ public class JanelaLogin extends javax.swing.JFrame {
 	   PrincipalControlador principalControlador = new PrincipalControlador();
 	   
 	   /** Cria a base de dados **/
-	   //principalControlador.criarBaseDeDados();
+	   principalControlador.criarBaseDeDados();
 	   
 	   
        /* Set the Nimbus look and feel */
