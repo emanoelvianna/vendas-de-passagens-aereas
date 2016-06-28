@@ -75,15 +75,26 @@ public class JanelaLogin extends javax.swing.JFrame {
        pack();
    }// </editor-fold>                        
 
-   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-       JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
-       janelaPrincipal.setVisible(true);
+   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {   
+       String login = jTextField1.getText();
+       String senha = jTextField2.getText();
+    	       
+       PrincipalControlador controlador = new PrincipalControlador();
+       boolean isValido = controlador.login(login, senha);
+       if(isValido == true){
+    	   JanelaPrincipal janelaPrincipal = new JanelaPrincipal();
+    	   janelaPrincipal.setVisible(true);
+       }
    }                                        
 
    /**
     * @param args the command line arguments
     */
    public static void main(String args[]) {
+	   PrincipalControlador principalControlador = new PrincipalControlador();
+	   principalControlador.criarBaseDeDados();
+	   
+	   
        /* Set the Nimbus look and feel */
        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
