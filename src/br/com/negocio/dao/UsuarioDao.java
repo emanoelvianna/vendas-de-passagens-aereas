@@ -12,5 +12,5 @@ public interface UsuarioDao {
 
 	public List<Usuario> buscarTodos() throws DaoUsuarioException;
 	
-	public Usuario validarUsuario(String login, String senha);
+	public Usuario validaUsuario(String login, String senha);
 }

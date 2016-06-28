@@ -1,42 +1,61 @@
 package br.com.negocio.entidade;
 
-import java.util.Date;
-
-import org.joda.time.DateTime;
+import java.sql.Timestamp;
+import java.util.List;
 
 import br.com.negocio.enumeracao.Documento;
 import br.com.negocio.enumeracao.Status;
 
 public class Passagem {
-	private String nomePassageiro;
+	private Usuario usuario;
+	private CompanhiaAerea companhiaAerea;
+	private String nome;
 	private Status status;
-	private Date datahora;
-	private int numeroAssento;
-	private int numeroLocalizador;
-	private Documento documento;
 	private int checkin;
-	private String codigoUsuario;
+	private Timestamp dataHora;
+	private int numeroAssento;
+	private Documento documento;
+	private int localizador;
 	private double valor;
+	private List<Voo> voos;
 
-	public Passagem(String nomePassageiro, Status status, Date datahora, int numeroAssento,
-			int numeroLocalizador, Documento documento, int checkin, String codigoUsuario, double valor) {
-		this.nomePassageiro = nomePassageiro;
+	public Passagem(Usuario usuario, CompanhiaAerea companhiaAerea, String nome, Status status, int checkin, Timestamp dataHora, int numeroAssento,
+			Documento documento, int localizador, double valor, List<Voo> voos) {
+		this.usuario = usuario;
+		this.companhiaAerea = companhiaAerea;
+		this.nome = nome;
 		this.status = status;
-		this.datahora = datahora;
-		this.numeroAssento = numeroAssento;
-		this.numeroLocalizador = numeroLocalizador;
-		this.documento = documento;
 		this.checkin = checkin;
-		this.codigoUsuario = codigoUsuario;
+		this.dataHora = dataHora;
+		this.numeroAssento = numeroAssento;
+		this.documento = documento;
+		this.localizador = localizador;
 		this.valor = valor;
+		this.voos = voos;
 	}
 
-	public String getNomePassageiro() {
-		return nomePassageiro;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setNomePassageiro(String nomePassageiro) {
-		this.nomePassageiro = nomePassageiro;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public CompanhiaAerea getCompanhiaAerea() {
+		return companhiaAerea;
+	}
+
+	public void setCompanhiaAerea(CompanhiaAerea companhiaAerea) {
+		this.companhiaAerea = companhiaAerea;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Status getStatus() {
@@ -47,28 +66,28 @@ public class Passagem {
 		this.status = status;
 	}
 
-	public Date getDatahora() {
-		return datahora;
+	public int getCheckin() {
+		return checkin;
 	}
 
-	public void setDatahora(Date datahora) {
-		this.datahora = datahora;
+	public void setCheckin(int checkin) {
+		this.checkin = checkin;
+	}
+
+	public Timestamp getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(Timestamp dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	public int getNumeroAssento() {
 		return numeroAssento;
 	}
 
-	public void setNumeroAssento(int numeroAssento) {
-		this.numeroAssento = numeroAssento;
-	}
-
-	public int getNumeroLocalizador() {
-		return numeroLocalizador;
-	}
-
-	public void setNumeroLocalizador(int numeroLocalizador) {
-		this.numeroLocalizador = numeroLocalizador;
+	public void setNumeroAssento(int assento) {
+		this.numeroAssento = assento;
 	}
 
 	public Documento getDocumento() {
@@ -79,20 +98,12 @@ public class Passagem {
 		this.documento = documento;
 	}
 
-	public int getCheckin() {
-		return checkin;
+	public int getLocalizador() {
+		return localizador;
 	}
 
-	public void setCheckin(int checkin) {
-		this.checkin = checkin;
-	}
-
-	public String getCodigoUsuario() {
-		return codigoUsuario;
-	}
-
-	public void setLogin(String codigoUsuario) {
-		this.codigoUsuario = codigoUsuario;
+	public void setLocalizador(int localizador) {
+		this.localizador = localizador;
 	}
 
 	public double getValor() {
@@ -102,5 +113,22 @@ public class Passagem {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+
+	public List<Voo> getVoos() {
+		return voos;
+	}
+
+	public void setVoos(List<Voo> voos) {
+		this.voos = voos;
+	}
+	
+	 public boolean addVoo(Voo voo){
+	        for(Voo v : voos) {
+	            if(v.getCodigo() == voo.getCodigo()) {
+	                return true;
+	            }
+	        }
+	        return voos.add(voo);
+	    }
 
 }

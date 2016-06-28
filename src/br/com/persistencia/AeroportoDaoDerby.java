@@ -15,7 +15,7 @@ import br.com.persistencia.conexao.Conexao;
 public class AeroportoDaoDerby implements AeroportoDao {
 
 	@Override
-	public void inserir(Aeroporto aeroporto) throws DaoAeroportoException {
+	public void inserir(Aeroporto aeroporto) {
 		String sql = "INSERT INTO AEROPORTO(CODIGO, LATITUDE, LONGITUDE, NOME) VALUES(?,?,?,?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
@@ -26,16 +26,18 @@ public class AeroportoDaoDerby implements AeroportoDao {
 				statement.setString(4, aeroporto.getNome());
 				resultado = statement.executeUpdate();
 			}
-		} catch (Exception e) {
-			throw new DaoAeroportoException("ERRO: falha ao tentar inserir usúario", e);
+		}catch (DaoAeroportoException e) {
+			new DaoAeroportoException("ERRO: falha ao tentar inserir o Aeroporto", e);
+		}catch (Exception e) {
+			new DaoAeroportoException("ERRO: falha ao tentar inserir o Aeroporto", e);
 		}
 		if (resultado == 0) {
-			throw new DaoAeroportoException("ERRO: falha usúario não inserido");
+			new DaoAeroportoException("ERRO: falha Aeroporto não inserido");
 		}
 	}
 
 	@Override
-	public Aeroporto buscarPorCodigo(String codigo) throws DaoAeroportoException {
+	public Aeroporto buscarPorCodigo(String codigo) {
 		 String sql = "SELECT * FROM AEROPORTO WHERE CODIGO = ?";
 	        Aeroporto aeroporto = null;
 	        try (Connection conexao = Conexao.getConexao()) {
@@ -53,13 +55,16 @@ public class AeroportoDaoDerby implements AeroportoDao {
 	                    return aeroporto;
 	                }
 	            }
-	        } catch (Exception e) {
-	            throw new DaoAeroportoException("ERRO: falha ao tentar buscar companhia aérea", e);
-	        }
+	        }catch (DaoAeroportoException e) {
+				new DaoAeroportoException("ERRO: falha ao tentar buscar pelo código do Aeroporto", e);
+			}catch (Exception e) {
+				new DaoAeroportoException("ERRO: falha ao tentar buscar pelo código do Aeroporto", e);
+			}
+			return aeroporto;
 	}
 
 	@Override
-	public List<Aeroporto> buscarTodos() throws DaoAeroportoException{
+	public List<Aeroporto> buscarTodos(){
 		String sql = "SELECT * FROM AEROPORTO";
 		List<Aeroporto> lista = new ArrayList<>();
 		try (Connection conexao = Conexao.getConexao()) {
@@ -77,9 +82,22 @@ public class AeroportoDaoDerby implements AeroportoDao {
 					return lista;
 				}
 			}
-		} catch (Exception e) {
-			throw new DaoAeroportoException("ERRO: falha ao tentar inserir aeroporto", e);
-		}
+		 }catch (DaoAeroportoException e) {
+			 new DaoAeroportoException("ERRO: falha ao tentar buscar todos os Aeroportos", e);
+		 }catch (Exception e) {
+			 new DaoAeroportoException("ERRO: falha ao tentar buscar todos os Aeroportos", e);
+		 }
+		return lista;
 	}
 
+	@Override
+	public Aeroporto buscarPorNome(String n) {
+		AeroportoDaoDerby aeroportoDaoDerby = new AeroportoDaoDerby();
+		List<Aeroporto> lista = aeroportoDaoDerby.buscarTodos();
+		for (Aeroporto aeroporto : lista) {
+			if(aeroporto.getNome().equals(n))
+				return aeroporto;
+		}
+		return null;
+	}
 }

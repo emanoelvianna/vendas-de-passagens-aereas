@@ -55,35 +55,43 @@ public class Conexao {
             		+ "PARADAS int,"
             		+ "EQUIPAMENTO varchar(100),"
             		+ "ASSENTOS int,"
-            		+ "DATAHORA DATE NOT NULL,"
+            		+ "DATAHORA TIMESTAMP NOT NULL,"
             		+ "CONSTRAINT FK_VOO_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO),"
             		+ "CONSTRAINT FK_VOO_ORIGEM FOREIGN KEY (CODIGOORIGEM) REFERENCES AEROPORTO(CODIGO),"
             		+ "CONSTRAINT FK_VOO_DESTINO FOREIGN KEY (CODIGODESTINO) REFERENCES AEROPORTO(CODIGO))";
             sta.executeUpdate(sqlVOO); 
             
-            String sqlPassagem = "CREATE TABLE PASSAGEM("
+            String sqlPASSAGEM = "CREATE TABLE PASSAGEM("
             		+ "CODIGO INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," 
             		+ "CODIGOUSUARIO varchar(100) NOT NULL,"
             		+ "COMPANHIA varchar(100) NOT NULL,"
             		+ "NOMEPASSAGEIRO varchar(100) NOT NULL,"
             		+ "STATUS varchar(100) NOT NULL,"
-            		+ "LIBERARCHECKIN int NOT NULL,"
-            		+ "DATAHORA varchar(100) NOT NULL,"
+            		+ "CHECKIN int NOT NULL,"
+            		+ "DATAHORA TIMESTAMP NOT NULL,"
             		+ "ASSENTO int NOT NULL,"
             		+ "DOCUMENTO varchar(100) NOT NULL,"
             		+ "LOCALIZADOR int NOT NULL,"
             		+ "VALOR DECIMAL(10,2) NOT NULL,"
             		+ "CONSTRAINT FK_PASSAGEM_USUARIO FOREIGN KEY (CODIGOUSUARIO) REFERENCES USUARIO(CODIGO),"
             		+ "CONSTRAINT FK_PASSAGEM_COMPANHIA FOREIGN KEY (COMPANHIA) REFERENCES COMPANHIA(CODIGO))";
-            sta.executeUpdate(sqlPassagem);
+            sta.executeUpdate(sqlPASSAGEM);
             
-            String sqlAeroportoVoo = "CREATE TABLE AEROPORTOVOO("
+            String sqlAEROPORTOVOO = "CREATE TABLE AEROPORTOVOO("
                     + "CODIGOVOO varchar(100) NOT NULL,"
                     + "CODIGOAEROPORTO varchar(100) NOT NULL,"
                     + "CONSTRAINT PK_AEROPORTOVOO PRIMARY KEY (CODIGOVOO,CODIGOAEROPORTO),"
                     + "CONSTRAINT FK_VOO FOREIGN KEY (CODIGOVOO) REFERENCES VOO(CODIGO),"
                     + "CONSTRAINT FK_AEROPORTO FOREIGN KEY (CODIGOAEROPORTO) REFERENCES AEROPORTO(CODIGO))";
-            sta.executeUpdate(sqlAeroportoVoo);
+            sta.executeUpdate(sqlAEROPORTOVOO);
+            
+            String sqlPASSAGEMVOO = "CREATE TABLE PASSAGEMVOO("
+                    + "CODIGOVOO varchar(100) NOT NULL,"
+                    + "CODIGOPASSAGEM int NOT NULL,"
+                    + "CONSTRAINT PK_PASSAGEMVOO PRIMARY KEY (CODIGOVOO,CODIGOPASSAGEM),"
+                    + "CONSTRAINT FK_PASSAGEMVOO_VOO FOREIGN KEY (CODIGOVOO) REFERENCES VOO(CODIGO),"
+                    + "CONSTRAINT FK_PASSAGEMVOO_PASSAGEM FOREIGN KEY (CODIGOPASSAGEM) REFERENCES PASSAGEM(CODIGO))";
+            sta.executeUpdate(sqlPASSAGEMVOO);
         }
     }
 

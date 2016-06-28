@@ -80,7 +80,7 @@ public class UsuarioDaoDerby implements UsuarioDao {
 	}
 
 	@Override
-	public Usuario validarUsuario(String login, String senha) {
+	public Usuario validaUsuario(String login, String senha) {
         String sql = "SELECT * FROM USUARIO WHERE LOGIN = ? AND SENHA = ?";
         Usuario usuario = null;
         try (Connection conexao = Conexao.getConexao()) {

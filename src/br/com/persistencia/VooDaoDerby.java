@@ -33,8 +33,6 @@ public class VooDaoDerby implements VooDao {
 			String codDestino = voo.getDestino().getCodigo();
 			Aeroporto destino = aeroportoDao.buscarPorCodigo(codDestino);
 			
-			Date date = new java.sql.Date(voo.getData().getTime());
-
 			try (Connection conexao = Conexao.getConexao()) {
 				try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 					comando.setString(1, voo.getCodigo());
@@ -45,7 +43,7 @@ public class VooDaoDerby implements VooDao {
 					comando.setInt(6, voo.getParadas());
 					comando.setString(7, voo.getEquipamento());
 					comando.setInt(8, voo.getNumeroDeAssentos());
-					comando.setDate(9, date);
+					comando.setTimestamp(9, voo.getData());
 					resultado = comando.executeUpdate();
 				}
 			}
@@ -87,7 +85,7 @@ public class VooDaoDerby implements VooDao {
 								resultadoVoos.getInt("PARADAS"), 
 								resultadoVoos.getString("EQUIPAMENTO"), 
 								resultadoVoos.getInt("ASSENTOS"), 
-								resultadoVoos.getDate("DATAHORA")
+								resultadoVoos.getTimestamp("DATAHORA")
 						);
 						lista.add(voo);
 					}
@@ -122,7 +120,7 @@ public class VooDaoDerby implements VooDao {
 								resultadoVoos.getInt("PARADAS"), 
 								resultadoVoos.getString("EQUIPAMENTO"), 
 								resultadoVoos.getInt("ASSENTOS"), 
-								resultadoVoos.getDate("DATAHORA")
+								resultadoVoos.getTimestamp("DATAHORA")
 						);
 						lista.add(voo.getOrigem());
 					}
@@ -157,7 +155,7 @@ public class VooDaoDerby implements VooDao {
 								resultadoVoos.getInt("PARADAS"), 
 								resultadoVoos.getString("EQUIPAMENTO"), 
 								resultadoVoos.getInt("ASSENTOS"), 
-								resultadoVoos.getDate("DATAHORA")
+								resultadoVoos.getTimestamp("DATAHORA")
 						);
 						if(voo.getOrigem().getNome().equals(origem))
 							lista.add(voo.getDestino());
@@ -193,7 +191,7 @@ public class VooDaoDerby implements VooDao {
 								resultadoVoos.getInt("PARADAS"), 
 								resultadoVoos.getString("EQUIPAMENTO"), 
 								resultadoVoos.getInt("ASSENTOS"), 
-								resultadoVoos.getDate("DATAHORA")
+								resultadoVoos.getTimestamp("DATAHORA")
 						);
 						if(voo.getOrigem().getNome().equals(origem))
 							lista.add(voo.getData().toString());

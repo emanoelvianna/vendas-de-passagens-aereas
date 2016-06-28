@@ -1,6 +1,6 @@
 package br.com.negocio.entidade;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Voo {
 	private String codigo;
@@ -11,10 +11,10 @@ public class Voo {
 	private int paradas;
 	private String equipamento;
 	private int numeroDeAssentos;
-	private Date data;
+	private Timestamp dataHora;
 
 	public Voo(String codigo, CompanhiaAerea companhiaAerea, Aeroporto origem, Aeroporto destino, String codeshare, int paradas, String equipamento,
-			int numeroDeAssentos, Date data) {
+			int numeroDeAssentos, Timestamp dataHora) {
 		this.codigo = codigo;
 		this.companhiaAerea = companhiaAerea;
 		this.origem = origem;
@@ -23,7 +23,7 @@ public class Voo {
 		this.paradas = paradas;
 		this.equipamento = equipamento;
 		this.numeroDeAssentos = numeroDeAssentos;
-		this.data = data;
+		this.dataHora = dataHora;
 	}
 
 	public String getCodigo() {
@@ -90,12 +90,12 @@ public class Voo {
 		this.companhiaAerea = companhiaAerea;
 	}
 
-	public Date getData() {
-		return data;
+	public Timestamp getData() {
+		return dataHora;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setData(Timestamp dataHora) {
+		this.dataHora = dataHora;
 	}
 
 }
