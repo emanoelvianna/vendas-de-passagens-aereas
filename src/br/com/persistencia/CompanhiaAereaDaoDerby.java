@@ -9,14 +9,13 @@ import java.util.List;
 
 import br.com.negocio.dao.CompanhiaAereaDao;
 import br.com.negocio.entidade.CompanhiaAerea;
-import br.com.negocio.entidade.Usuario;
 import br.com.negocio.excecoes.DaoCompanhiaAereaException;
 import br.com.negocio.excecoes.DaoUsuarioException;
 import br.com.persistencia.conexao.Conexao;
 
 public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 
-	public void inserir(CompanhiaAerea companhiaAerea) throws DaoCompanhiaAereaException {
+	public void inserir(CompanhiaAerea companhiaAerea) {
 		String sql = "INSERT INTO COMPANHIA(codigo,nome) VALUES(?,?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
@@ -25,16 +24,19 @@ public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 				comando.setString(2, companhiaAerea.getNome());
 				resultado = comando.executeUpdate();
 			}
-		} catch (Exception e) {
-			throw new DaoCompanhiaAereaException("ERRO: falha ao tentar inserir companhia aérea", e);
-		}
+		}catch (DaoCompanhiaAereaException d) {
+        	new DaoUsuarioException("Erro: tentativa de inserir companhia aerea falhou" + d);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de inserir companhia aerea falhou" + e);
+        }
 		if (resultado == 0) {
-			throw new DaoCompanhiaAereaException("ERRO: falha companhia aérea não inserida");
+			new DaoCompanhiaAereaException("ERRO: falha companhia aerea nao inserida");
 		}
 	}
 
     @Override
-    public CompanhiaAerea buscarPorCodigo(String codigo) throws DaoUsuarioException {
+    public CompanhiaAerea buscarPorCodigo(String codigo) {
         String sql = "SELECT * FROM COMPANHIA WHERE CODIGO = ?";
         CompanhiaAerea companhiaAerea = null;
         try (Connection conexao = Conexao.getConexao()) {
@@ -50,12 +52,16 @@ public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
                     return companhiaAerea;
                 }
             }
-        } catch (Exception e) {
-            throw new DaoUsuarioException("ERRO: falha ao tentar buscar companhia aérea", e);
+        }catch (DaoCompanhiaAereaException d) {
+        	new DaoUsuarioException("Erro: tentativa de bucar companhia aerea falhou" + d);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de bucar companhia aerea falhou" + e);
         }
+		return companhiaAerea;
     }
 
-	public List<CompanhiaAerea> buscarTodos() throws DaoCompanhiaAereaException {
+	public List<CompanhiaAerea> buscarTodos(){
 		List<CompanhiaAerea> lista = new ArrayList<>();
 		String sql = "SELECT * FROM COMPANHIA";
 
@@ -72,9 +78,12 @@ public class CompanhiaAereaDaoDerby implements CompanhiaAereaDao {
 					return lista;
 				}
 			}
-		} catch (Exception e) {
-			throw new DaoCompanhiaAereaException("ERRO: falha ao tentar buscar companhias aéreas", e);
-		}
+		}catch (DaoCompanhiaAereaException d) {
+        	new DaoUsuarioException("Erro: tentativa de bucar companhia aerea falhou" + d);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de bucar companhia aerea falhou" + e);
+        }
+		return lista;
 	}
-
 }

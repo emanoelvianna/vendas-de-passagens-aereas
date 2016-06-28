@@ -13,6 +13,8 @@ import br.com.negocio.dao.CompanhiaAereaDao;
 import br.com.negocio.dao.VooDao;
 import br.com.negocio.entidade.Aeroporto;
 import br.com.negocio.entidade.Voo;
+import br.com.negocio.excecoes.DaoCompanhiaAereaException;
+import br.com.negocio.excecoes.DaoUsuarioException;
 import br.com.negocio.excecoes.DaoVooException;
 import br.com.persistencia.conexao.Conexao;
 
@@ -203,4 +205,45 @@ public class VooDaoDerby implements VooDao {
             throw new DaoVooException("Falha na busca: " + e.getMessage(), e);
         }
 	}
+
+	public List<Voo> buscarVoosPorOrigemDestin(String origem, String destino) {
+		String sql = "SELECT * FROM VOO WHERE CODIGOORIGEM = ? AND CODIGODESTINO = ?";
+
+		CompanhiaAereaDao companhiaAereaDao = new CompanhiaAereaDaoDerby();
+		AeroportoDao aeroportoDao = new AeroportoDaoDerby();
+		List<Voo> lista = new ArrayList<>();
+		
+		try (Connection conexao = Conexao.getConexao()) {
+			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+                comando.setString(1, origem);
+                comando.setString(2, destino);
+				try (ResultSet resultadoVoos = comando.executeQuery()) {
+					// Para cada linha da tabela voo
+					while (resultadoVoos.next()) {
+						Voo voo = new Voo(
+								resultadoVoos.getString("CODIGO"), 
+								companhiaAereaDao.buscarPorCodigo(resultadoVoos.getString("COMPANHIA")), 
+								aeroportoDao.buscarPorCodigo(resultadoVoos.getString("CODIGOORIGEM")), 
+								aeroportoDao.buscarPorCodigo(resultadoVoos.getString("CODIGODESTINO")), 
+								resultadoVoos.getString("CODESHARE"), 
+								resultadoVoos.getInt("PARADAS"), 
+								resultadoVoos.getString("EQUIPAMENTO"), 
+								resultadoVoos.getInt("ASSENTOS"), 
+								resultadoVoos.getTimestamp("DATAHORA")
+						);
+						lista.add(voo);
+					}
+				}
+				return lista;
+			}
+		}catch (DaoVooException d) {
+        	new DaoUsuarioException("Erro: tentativa de bucar voo por origem e destino falhou" + d);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de bucar voo falhou" + e);
+        }
+		
+		return lista;
+	}
+
 }

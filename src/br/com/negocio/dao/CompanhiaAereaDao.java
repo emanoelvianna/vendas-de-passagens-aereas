@@ -7,9 +7,9 @@ import br.com.negocio.excecoes.DaoCompanhiaAereaException;
 import br.com.negocio.excecoes.DaoUsuarioException;
 
 public interface CompanhiaAereaDao {
-	public void inserir(CompanhiaAerea companhiaAerea) throws DaoCompanhiaAereaException;
+	public void inserir(CompanhiaAerea companhiaAerea);
 
-	public List<CompanhiaAerea> buscarTodos() throws DaoCompanhiaAereaException;
+	public List<CompanhiaAerea> buscarTodos();
 	
-	public CompanhiaAerea buscarPorCodigo(String codigo) throws DaoUsuarioException;
+	public CompanhiaAerea buscarPorCodigo(String codigo);
 }

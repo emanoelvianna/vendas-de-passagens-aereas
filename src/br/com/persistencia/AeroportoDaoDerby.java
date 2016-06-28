@@ -32,7 +32,7 @@ public class AeroportoDaoDerby implements AeroportoDao {
 			new DaoAeroportoException("ERRO: falha ao tentar inserir o Aeroporto", e);
 		}
 		if (resultado == 0) {
-			new DaoAeroportoException("ERRO: falha Aeroporto não inserido");
+			new DaoAeroportoException("ERRO: falha Aeroporto nï¿½o inserido");
 		}
 	}
 
@@ -56,9 +56,9 @@ public class AeroportoDaoDerby implements AeroportoDao {
 	                }
 	            }
 	        }catch (DaoAeroportoException e) {
-				new DaoAeroportoException("ERRO: falha ao tentar buscar pelo código do Aeroporto", e);
+				new DaoAeroportoException("ERRO: falha ao tentar buscar pelo cï¿½digo do Aeroporto", e);
 			}catch (Exception e) {
-				new DaoAeroportoException("ERRO: falha ao tentar buscar pelo código do Aeroporto", e);
+				new DaoAeroportoException("ERRO: falha ao tentar buscar pelo cï¿½digo do Aeroporto", e);
 			}
 			return aeroporto;
 	}

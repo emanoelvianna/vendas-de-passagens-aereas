@@ -15,7 +15,7 @@ import br.com.persistencia.conexao.Conexao;
 public class UsuarioDaoDerby implements UsuarioDao {
 
 	@Override
-	public void inserir(Usuario usuario) throws DaoUsuarioException {
+	public void inserir(Usuario usuario) {
 		String sql = "INSERT INTO USUARIO(CODIGO, LOGIN, SENHA) VALUES(?,?,?)";
 		int resultado = 0;
 		try (Connection conexao = Conexao.getConexao()) {
@@ -25,16 +25,19 @@ public class UsuarioDaoDerby implements UsuarioDao {
 				statement.setString(3, usuario.getSenha());
 				resultado = statement.executeUpdate();
 			}
-		} catch (Exception e) {
-			throw new DaoUsuarioException("ERRO: falha ao tentar inserir usúario", e);
-		}
+		}catch (DaoUsuarioException daoUsuarioException) {
+        	new DaoUsuarioException("Erro: tentativa de inserir usuario falhou" + daoUsuarioException);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de inserir usurio falhou" + e);
+        }
 		if (resultado == 0) {
-			throw new DaoUsuarioException("ERRO: falha usúario não inserido");
+			new DaoUsuarioException("ERRO: falha usuario nao inserido");
 		}
 	}
 
     @Override
-    public Usuario buscarPorCodigo(String codigo) throws DaoUsuarioException {
+    public Usuario buscarPorCodigo(String codigo) {
         String sql = "SELECT * FROM USUARIO WHERE CODIGO = ?";
         Usuario usuario = null;
         try (Connection conexao = Conexao.getConexao()) {
@@ -51,13 +54,17 @@ public class UsuarioDaoDerby implements UsuarioDao {
                     return usuario;
                 }
             }
-        } catch (Exception e) {
-            throw new DaoUsuarioException("Falha na busca", e);
+        }catch (DaoUsuarioException daoUsuarioException) {
+        	new DaoUsuarioException("Erro: tentativa de buscar usuario falhou" + daoUsuarioException);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de buscar usurio falhou" + e);
         }
+		return usuario;
     }
 
 	@Override
-	public List<Usuario> buscarTodos() throws DaoUsuarioException {
+	public List<Usuario> buscarTodos() {
 		String sql = "SELECT * FROM USUARIO";
 		List<Usuario> lista = new ArrayList<>();
 		try (Connection conexao = Conexao.getConexao()) {
@@ -74,9 +81,13 @@ public class UsuarioDaoDerby implements UsuarioDao {
 					return lista;
 				}
 			}
-		} catch (Exception e) {
-			throw new DaoUsuarioException("ERRO: falha ao tentar inserir usúario", e);
-		}
+		}catch (DaoUsuarioException daoUsuarioException) {
+        	new DaoUsuarioException("Erro: tentativa de buscar usuario falhou" + daoUsuarioException);
+        } 
+        catch (Exception e) {
+        	new Exception("Erro: tentativa de buscar usurio falhou" + e);
+        }
+		return lista;
 	}
 
 	@Override
@@ -99,10 +110,10 @@ public class UsuarioDaoDerby implements UsuarioDao {
                 }
             }
         }catch (DaoUsuarioException daoUsuarioException) {
-        	new DaoUsuarioException("Erro: tentativa de validar usuário falhou" + daoUsuarioException);
+        	new DaoUsuarioException("Erro: tentativa de validar usuï¿½rio falhou" + daoUsuarioException);
         } 
         catch (Exception e) {
-        	new Exception("Erro: tentativa de validar usuário falhou" + e);
+        	new Exception("Erro: tentativa de validar usuï¿½rio falhou" + e);
         }
 		return usuario;
 	}

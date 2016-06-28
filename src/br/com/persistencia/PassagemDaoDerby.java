@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.negocio.dao.AeroportoDao;
 import br.com.negocio.dao.CompanhiaAereaDao;
 import br.com.negocio.dao.PassagemDao;
 import br.com.negocio.dao.UsuarioDao;
@@ -30,13 +31,13 @@ public class PassagemDaoDerby implements PassagemDao {
 
 	@Override
 	public void inserir(Passagem passagem) {
-		String sql = "INSERT INTO PASSAGEM(CODIGOUSUARIO, COMPANHIA, NOMEPASSAGEIRO, STATUS, LIBERARCHECKIN, DATAHORA, ASSENTO, DOCUMENTO, LOCALIZADOR, VALOR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO PASSAGEM(CODIGOUSUARIO, COMPANHIA, NOMEPASSAGEIRO, STATUS, CHECKIN, DATAHORA, ASSENTO, DOCUMENTO, LOCALIZADOR, VALOR) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int resultado = 0;
+		
+		CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo("ACME");
+		Usuario usuario = usuarioDao.buscarPorCodigo(passagem.getUsuario().getCodigo());
+		
 		try (Connection conexao = Conexao.getConexao()) {
-
-			CompanhiaAerea companhiaAerea = companhiaAereaDao.buscarPorCodigo("ACME");
-			Usuario usuario = usuarioDao.buscarPorCodigo(passagem.getUsuario().getCodigo());
-
 			try (PreparedStatement statement = conexao.prepareStatement(sql)) {
 				statement.setString(1, usuario.getCodigo());
 				statement.setString(2, companhiaAerea.getCodigo());
@@ -56,7 +57,7 @@ public class PassagemDaoDerby implements PassagemDao {
 			new DaoPassagemException("ERRO: falha ao tentar inserir Passagem", e);
 		}
 		if (resultado == 0) {
-			new DaoPassagemException("ERRO: falha passagem não inserida");
+			new DaoPassagemException("ERRO: falha passagem nï¿½o inserida");
 		}
 
 	}
@@ -119,26 +120,6 @@ public class PassagemDaoDerby implements PassagemDao {
 			new DaoPassagemException("ERRO: falha ao tentar buscar Passagem", e);
 		}
 		return passagens;
-	}
-	
-	public static void main(String[] args) {
-		Usuario usuario = new Usuario("1", "emanoel", "12345");
-		CompanhiaAerea companhiaAerea = new CompanhiaAerea("1", "A");
-		Aeroporto a = new Aeroporto("1", "etste", "", "");
-		Voo voo = new Voo("1", companhiaAerea, a, a, "", 0, "", 0, new Timestamp(System.currentTimeMillis()));
-		List<Voo> lista = new ArrayList<>();
-		lista.add(voo);
-		
-		Passagem passagem = new Passagem(usuario, companhiaAerea, "", Status.PENDENTE, 0, new Timestamp(System.currentTimeMillis()), 0, Documento.CPF, 0, 100, lista);
-		PassagemDaoDerby daoDerby = new PassagemDaoDerby();
-		daoDerby.inserir(passagem);
-		
-		List<Passagem> l= daoDerby.buscarTodos();
-		for (Passagem passagem2 : l) {
-			System.out.println(passagem2.getNome());
-		}
-		
-		System.out.println("nada encontrado!");
 	}
 	
 }
